@@ -16,6 +16,7 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
 ******************** Features ***********************
 
 > Multi Encodings :
+                  
                   utf-8
                   utf-16
                   utf-16-BigEndian
@@ -28,6 +29,7 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
                   iso-8859-1
 
 > Read/ Write :
+                
                 Hexadecimal
                 Decimal
                 Encodings listed above
@@ -49,6 +51,7 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
 > Find Active Com ports
 
 > Realtime Serial Port Information :
+                                    
                                     RTS
                                     DTR
                                     TX
@@ -73,6 +76,7 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
 
 
 > Conversion Tables :
+                      
                       Ascii text to Hexadecimal
                       Ascii text to Decimal
                       Ascii text to Octal
@@ -120,6 +124,7 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
 > Test cables (where cable lenghts maybe an issue etc...).
 
 > Test communications on devices :
+                                  
                                   Arduino
                                   Rasberry Pi
                                   Modems
@@ -129,6 +134,7 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
                                   etc...
                                   
 > Test different Serial protocols :
+                                    
                                     UART Protocol
                                     USART Protocol
                                     USB Protocol
@@ -141,6 +147,7 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
                                     Proprietary Protocols
 
 > Test functions on :
+                      
                       RS232
                       RS485
                       RS422
