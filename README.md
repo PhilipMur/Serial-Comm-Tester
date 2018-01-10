@@ -30,9 +30,9 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
 
 >*** Read/ Write :
                 
-                Hexadecimal
-                Decimal
-                Encodings listed above
+                  Hexadecimal
+                  Decimal
+                  Encodings listed above
 
 > Full Serial Port Control.
 
@@ -52,17 +52,17 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
 
 >*** Realtime Serial Port Information :
                                     
-                                    RTS
-                                    DTR
-                                    TX
-                                    RX
-                                    CD
-                                    DSR
-                                    CTS
-                                    RI
-                                    BI
-                                    Send Counter
-                                    Recieved Counter
+                  RTS
+                  DTR
+                  TX
+                  RX
+                  CD
+                  DSR
+                  CTS
+                  RI
+                  BI
+                  Send Counter
+                  Read Counter
 
 > Clear In/Out Buffers
 
@@ -77,43 +77,43 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
 
 >*** Conversion Tables :
                       
-                      Ascii text to Hexadecimal
-                      Ascii text to Decimal
-                      Ascii text to Octal
-                      Ascii text to Binary
-                      Hex to Decimal
-                      Hex to Ascii
-                      Decimal to Hex
-                      Hex Chart
-                      Unicode Chart
+                  Ascii text to Hexadecimal
+                  Ascii text to Decimal
+                  Ascii text to Octal
+                  Ascii text to Binary
+                  Hex to Decimal
+                  Hex to Ascii
+                  Decimal to Hex
+                  Hex Chart
+                  Unicode Chart
 
 
 >*** CRC /Checksum /BCC / Calculator :
                                     
-                                    CRC8
-                                    CRC8_DVB
-                                    CRC8_SAE_J1850
+                  CRC8
+                  CRC8_DVB
+                  CRC8_SAE_J1850
                                     
-                                    CRC_16_CCITT_ZERO
-                                    CRC_16_XMODEM
-                                    CRC_16_CCITT_FALSE
-                                    CRC_16_AUG_CCITT
-                                    CRC_16_TELEDISK
-                                    CRC_16_T10_DIF
-                                    CRC_16_DECT_X
-                                    CRC_16_DDS_110
-                                    CRC_16_CDMA2000
-                                    CRC_16_BUYPASS
-                                    CRC_16_MODBUS
+                  CRC_16_CCITT_ZERO
+                  CRC_16_XMODEM
+                  CRC_16_CCITT_FALSE
+                  CRC_16_AUG_CCITT
+                  CRC_16_TELEDISK
+                  CRC_16_T10_DIF
+                  CRC_16_DECT_X
+                  CRC_16_DDS_110
+                  CRC_16_CDMA2000
+                  CRC_16_BUYPASS
+                  CRC_16_MODBUS
 
-                                    CRC_32
+                  CRC_32
+                  
+                  2s Complement 8 bit
+                  2s Complement 16 bit
 
-                                    2s Complement 8 bit
-                                    2s Complement 16 bit
+                  Modulo 256
 
-                                    Modulo 256
-
-                                    BCC (Block Check Character)
+                  BCC (Block Check Character)
                                     
 
 ******************** Uses In The Real World ***********************
@@ -126,36 +126,36 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
 
 >*** Test communications on devices :
                                   
-                                  Arduino
-                                  Rasberry Pi
-                                  Modems
-                                  Embedded Hardware
-                                  Printers
-                                  RFID
-                                  etc...
+                  Arduino
+                  Rasberry Pi
+                  Modems
+                  Embedded Hardware
+                  Printers
+                  RFID
+                  etc...
                                   
 >*** Test different Serial protocols :
                                     
-                                    UART Protocol
-                                    USART Protocol
-                                    USB Protocol
-                                    I2C Protocol
-                                    SPI Protocol
-                                    CAN Protocol
-                                    Modbus RTU
-                                    Modbus ASCII
-                                    LON
-                                    Proprietary Protocols
+                  UART Protocol
+                  USART Protocol
+                  USB Protocol
+                  I2C Protocol
+                  SPI Protocol
+                  CAN Protocol
+                  Modbus RTU
+                  Modbus ASCII
+                  LON
+                  Proprietary Protocols
 
 >*** Test functions on :
                       
-                      RS232
-                      RS485
-                      RS422
-                      LON
-                      1-Wire
-                      I2C
-                      etc...
+                  RS232
+                  RS485
+                  RS422
+                  LON
+                  1-Wire
+                  I2C
+                  etc...
                       
 > Test CRC / Checksums /BCC and others to verify commands sent and recieved.
 
