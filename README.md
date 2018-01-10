@@ -15,7 +15,7 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
 
 ******************** Features ***********************
 
-> Multi Encodings :
+>*** Multi Encodings :
                   
                   utf-8
                   utf-16
@@ -28,7 +28,7 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
                   IBM-437
                   iso-8859-1
 
-> Read/ Write :
+>*** Read/ Write :
                 
                 Hexadecimal
                 Decimal
@@ -50,7 +50,7 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
 
 > Find Active Com ports
 
-> Realtime Serial Port Information :
+>*** Realtime Serial Port Information :
                                     
                                     RTS
                                     DTR
@@ -75,7 +75,7 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
 > Auto Save to file (option to append or overwrite last data).
 
 
-> Conversion Tables :
+>*** Conversion Tables :
                       
                       Ascii text to Hexadecimal
                       Ascii text to Decimal
@@ -88,7 +88,8 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
                       Unicode Chart
 
 
-> CRC /Checksum /BCC / Calculator :
+>*** CRC /Checksum /BCC / Calculator :
+                                    
                                     CRC8
                                     CRC8_DVB
                                     CRC8_SAE_J1850
@@ -123,7 +124,7 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
 
 > Test cables (where cable lenghts maybe an issue etc...).
 
-> Test communications on devices :
+>*** Test communications on devices :
                                   
                                   Arduino
                                   Rasberry Pi
@@ -133,7 +134,7 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
                                   RFID
                                   etc...
                                   
-> Test different Serial protocols :
+>*** Test different Serial protocols :
                                     
                                     UART Protocol
                                     USART Protocol
@@ -146,7 +147,7 @@ This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED a
                                     LON
                                     Proprietary Protocols
 
-> Test functions on :
+>*** Test functions on :
                       
                       RS232
                       RS485
