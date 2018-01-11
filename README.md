@@ -3,7 +3,7 @@ Serial Communications Test Tool
 
 Serial Comm Tester is written by Philip Murray and released under the GPL-V2 License.
 
-Contributors are welcome !!!!!
+Contributors and collaborators are welcome !!!!!
 
 This started as a basic Serial communications test tool that i created for when at work to make my life easier.
 
@@ -12,6 +12,8 @@ Alot of other Serial programs are BUGGY as hell so i made my own and added to it
 My Goal is to add features like Modbus , 12c and other protocols or if someone whats to contribute i would be very gratefull aswell.
 
 This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED and maybe grow into a bigger more comprehensive program and keep it free for all to use and modify as alot of programs like this exspect payment.
+
+Current working Software can be downloaded here  [Serial-Comm-Tester](https://goo.gl/1C23rv)
 
 ******************** Features ***********************
 
