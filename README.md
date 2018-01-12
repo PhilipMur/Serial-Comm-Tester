@@ -9,7 +9,7 @@ This started as a basic Serial communications test tool that i created for when 
 
 Alot of other Serial programs are BUGGY as hell so i made my own and added to it over time.
 
-My Goal is to add features like Modbus , 12c and other protocols or if someone whats to contribute i would be very gratefull aswell.
+My Goal is to add features like Modbus , 12c and other protocols or if someone want's to contribute or collaborate i would be very gratefull aswell as everyone knows time is money now.
 
 This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED and maybe grow into a bigger more comprehensive program and keep it free for all to use and modify as alot of programs like this exspect payment.
 
