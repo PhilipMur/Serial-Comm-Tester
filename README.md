@@ -13,7 +13,7 @@ My Goal is to add features like Modbus , 12c and other protocols or if someone w
 
 This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED and maybe grow into a bigger more comprehensive program and keep it free for all to use and modify as alot of programs like this exspect payment.
 
-Current working Software can be downloaded here  [Serial-Comm-Tester](https://goo.gl/1C23rv)
+Current working Software can be downloaded here  [Serial-Comm-Tester Download](https://goo.gl/1C23rv)
 
 ******************** Features ***********************
 
