@@ -5,10 +5,10 @@ How to contribute?
 
 It's very simple!
 
-    Fork the project
-    Make the changes
-    Issue a pull request
-    I will do a merge after verifying (in some cases changing) the code
+    1.Fork the project
+    2.Make the changes
+    3.Issue a pull request
+    4.I will do a merge after verifying (in some cases changing) the code
 
 How to report bugs?
 
