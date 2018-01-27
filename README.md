@@ -1,11 +1,11 @@
 # Serial-Comm-Tester
-Serial Communications Test Tool 
+Serial Communications Test Tool written in C# (csharp) .Net (dotNet) Framework in Visual Studio.
 
 Serial Comm Tester is written by Philip Murray and released under the GPL-V2 License.
 
 Contributors and collaborators are welcome !!!!!
 
-This started as a basic Serial communications test tool that i created for when at work to make my life easier.
+This started as a basic Serial communications test tool that i created for when at work to make my life easier working with rs232 , rs485 / serial com ports and to monitor data sent and recieved.
 
 Alot of other Serial programs are BUGGY as hell so i made my own and added to it over time.
 
