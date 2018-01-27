@@ -21,6 +21,15 @@ To see a Basic operation of the software click here [My Youtube Channel](https:/
 
 # Features.....
 
+![screenshot 283](https://user-images.githubusercontent.com/27295232/35466943-ba659332-0300-11e8-9ed0-1cf4c33e81c3.png)
+https://github.com/PhilipMur/Serial-Comm-Tester/wiki
+
+
+![screenshot 625](https://user-images.githubusercontent.com/27295232/35466956-e85d7746-0300-11e8-8fc0-320ff75113e7.png)
+
+
+
+
 # Multi Encodings :
                   
                   utf-8
@@ -56,6 +65,8 @@ To see a Basic operation of the software click here [My Youtube Channel](https:/
 
 > Find Active Com ports
 
+![screenshot 627](https://user-images.githubusercontent.com/27295232/35466963-02b920b8-0301-11e8-890b-668ec7283ed5.png)
+
 # Realtime Serial Port Information :
                                     
                   RTS
@@ -80,6 +91,8 @@ To see a Basic operation of the software click here [My Youtube Channel](https:/
 
 > Auto Save to file (option to append or overwrite last data).
 
+![screenshot 647](https://user-images.githubusercontent.com/27295232/35467004-6f5f418e-0301-11e8-9fc3-0f8bd2e0bcbe.png)
+
 
 # Conversion Tables :
                       
@@ -93,6 +106,7 @@ To see a Basic operation of the software click here [My Youtube Channel](https:/
                   Hex Chart
                   Unicode Chart
 
+![screenshot 649](https://user-images.githubusercontent.com/27295232/35466994-455de7be-0301-11e8-817d-36dd2d90b602.png)
 
 # CRC /Checksum /BCC / Calculator :
                                     
