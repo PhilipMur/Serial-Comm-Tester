@@ -1,26 +1,27 @@
 # Serial-Comm-Tester
-Serial Communications Test Tool 
+Serial Communications Test Tool written in C# (csharp) .Net (dotNet) Framework in Visual Studio.
 
 Serial Comm Tester is written by Philip Murray and released under the GPL-V2 License.
 
 Contributors and collaborators are welcome !!!!!
 
-This started as a basic Serial communications test tool that i created for when at work to make my life easier.
+This started as a basic Serial communications test tool that i created for when at work to make my life easier working with rs232 , rs485 / serial com ports and to monitor data sent and recieved.
 
 Alot of other Serial programs are BUGGY as hell so i made my own and added to it over time.
 
-My Goal is to add features like Modbus , 12c and other protocols or if someone want's to contribute or collaborate i would be very gratefull aswell as everyone knows time is money now.
+My Goal is to add features like Modbus , 12c and other protocols or if someone want's to contribute or collaborate i would be very gratefull aswell as everyone knows time is money now and a succesful commit will be added to a changelog.
 
 This is licensed under the GPL-V2 as to keep any versions of this OPEN-SOURCED and maybe grow into a bigger more comprehensive program and keep it free for all to use and modify as alot of programs like this expect payment.
 
+# [Download](https://goo.gl/1C23rv)
 Current working Software can be downloaded here  [Serial-Comm-Tester Download](https://goo.gl/1C23rv)
 
+# [Usage](https://www.youtube.com/watch?v=0xCK9FXaT0o)
 To see a Basic operation of the software click here [My Youtube Channel](https://www.youtube.com/watch?v=0xCK9FXaT0o)
 
+# Features.....
 
-******************** Features ***********************
-
->*** Multi Encodings :
+# Multi Encodings :
                   
                   utf-8
                   utf-16
@@ -33,13 +34,13 @@ To see a Basic operation of the software click here [My Youtube Channel](https:/
                   IBM-437
                   iso-8859-1
 
->*** Read/ Write :
+# Serial Read/ Write :
                 
                   Hexadecimal
                   Decimal
                   Encodings listed above
 
-> Full Serial Port Control.
+# Full Serial Port Control.
 
 > Send To the Serial port from a file.
 
@@ -55,7 +56,7 @@ To see a Basic operation of the software click here [My Youtube Channel](https:/
 
 > Find Active Com ports
 
->*** Realtime Serial Port Information :
+# Realtime Serial Port Information :
                                     
                   RTS
                   DTR
@@ -80,7 +81,7 @@ To see a Basic operation of the software click here [My Youtube Channel](https:/
 > Auto Save to file (option to append or overwrite last data).
 
 
->*** Conversion Tables :
+# Conversion Tables :
                       
                   Ascii text to Hexadecimal
                   Ascii text to Decimal
@@ -93,7 +94,7 @@ To see a Basic operation of the software click here [My Youtube Channel](https:/
                   Unicode Chart
 
 
->*** CRC /Checksum /BCC / Calculator :
+# CRC /Checksum /BCC / Calculator :
                                     
                   CRC8
                   CRC8_DVB
@@ -120,8 +121,7 @@ To see a Basic operation of the software click here [My Youtube Channel](https:/
 
                   BCC (Block Check Character)
                                     
-
-******************** Uses In The Real World ***********************
+# Uses In The Real World
 
 > Test USB To Serail Convertes (loop TX - RX)
 
@@ -129,7 +129,7 @@ To see a Basic operation of the software click here [My Youtube Channel](https:/
 
 > Test cables (where cable lenghts maybe an issue etc...).
 
->*** Test communications on devices :
+# Test communications on devices :
                                   
                   Arduino
                   Rasberry Pi
@@ -139,7 +139,7 @@ To see a Basic operation of the software click here [My Youtube Channel](https:/
                   RFID
                   etc...
                                   
->*** Test different Serial protocols :
+# Test different Serial protocols :
                                     
                   UART Protocol
                   USART Protocol
@@ -152,7 +152,7 @@ To see a Basic operation of the software click here [My Youtube Channel](https:/
                   LON
                   Proprietary Protocols
 
->*** Test functions on :
+# Test functions on :
                       
                   RS232
                   RS485
@@ -166,7 +166,7 @@ To see a Basic operation of the software click here [My Youtube Channel](https:/
 
 > Use as a Listener on RS485 , 422 etc..
 
-******************** Plans for the future ***********************
+# Plans for the future
 
 I wish to add other protocols and additional features , hopefully with the help of Contributors from Github and make this an easy to use , fucntional and comprehesive FREE Serial communcations test tool available .
 
