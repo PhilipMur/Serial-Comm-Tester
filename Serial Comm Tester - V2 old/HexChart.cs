@@ -23,6 +23,7 @@
  */
 
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Serial_Comm_Tester
@@ -35,7 +36,7 @@ namespace Serial_Comm_Tester
             InitializeComponent();
         }
 
-        private  void btnHexChart_Click(object sender, EventArgs e)
+        private async void btnHexChart_Click(object sender, EventArgs e)
         {
               richTextBox1.Text = "";
             // const string app =  Application.StartupPath();
@@ -44,9 +45,10 @@ namespace Serial_Comm_Tester
 
             try
             {
-                richTextBox1.Text = Properties.Resources.HEX_to_ASCII;
-
-              
+                using (StreamReader sr = new StreamReader("HEX_to_ASCII.txt"))
+                {
+                    richTextBox1.Text = await sr.ReadToEndAsync();
+                }
             }
             catch 
             {
@@ -63,14 +65,19 @@ namespace Serial_Comm_Tester
             Close();
         }
 
-        private  void btnUnicodeChart_Click(object sender, EventArgs e)
+        private async void btnUnicodeChart_Click(object sender, EventArgs e)
         {
             richTextBox1.Text = "";
-           
+            // const string app =  Application.StartupPath();
+
+            //  using (StreamReader sr = new StreamReader(Application.StartupPath + "\\" + "Unicode_characters.txt"))
+
             try
             {
-                richTextBox1.Text = Properties.Resources.Unicode_characters;
-
+                using (StreamReader sr = new StreamReader("Unicode_characters.txt"))
+                {
+                    richTextBox1.Text = await sr.ReadToEndAsync();
+                }
             }
             catch 
             {

@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Serial_Comm_Tester.Properties
-{
-
-
+namespace Serial_Comm_Tester.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -19,52 +19,99 @@ namespace Serial_Comm_Tester.Properties
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    internal class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if ((resourceMan == null))
-                {
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Serial_Comm_Tester.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ASCII control characters
+        ///
+        ///
+        ///Dec 	Hex 	Binary      Character   Description
+        ///	                                
+        ///0 	00 	00000000 	NUL 	null
+        ///1 	01 	00000001 	SOH 	start of header
+        ///2 	02 	00000010 	STX 	start of text
+        ///3 	03 	00000011 	ETX 	end of text
+        ///4 	04 	00000100 	EOT 	end of transmission
+        ///5 	05 	00000101 	ENQ 	enquiry
+        ///6 	06 	00000110 	ACK 	acknowledge
+        ///7 	07 	00000111 	BEL 	bell
+        ///8 	08 	00001000 	BS 	backspace
+        ///9 	09 	00001001 	HT 	horizontal tab
+        ///10 	0A 	00001010 	LF 	line feed
+        ///11 	0B 	00001011 	VT 	vertical tab
+        ///12  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string HEX_to_ASCII {
+            get {
+                return ResourceManager.GetString("HEX_to_ASCII", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to THIS IS ONLY SOME UNICODE CHARACTERS AS EXAMPLE:
+        ///
+        ///Symbols codes
+        ///&amp; • ◦ ∙ ‣ ⁃ ° ∞
+        ///
+        ///Currency codes
+        /// $ ₨ ₱ ₩ ฿ ₫ ₪
+        ///
+        ///Intellectual property codes
+        ///© ® ℗ ™ ℠
+        ///
+        ///Greek alphabet codes
+        ///α β γ δ ε ζ η θ ι κ λ μ ν ξ ο π ρ σ τ υ φ χ ψ ω Α Β Γ Δ Ε Ζ Η Θ Ι Κ Λ Μ Ν Ξ Ο Π Ρ Σ Τ Υ Φ Χ Ψ Ω
+        ///
+        ///
+        ///
+        /// 	! 	&quot; 	# 	$ 	% 	&amp; 	&apos; 	( 	) 	* 	+ 	, 	- 	. 	/
+        ///0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	: 	; 	&lt; 	= 	&gt; 	?
+        ///@ 	A 	B 	C 	D 	E 	F 	G 	H 	I 	J 	K 	L 	M 	N 	O
+        ///P 	Q 	R 	S 	T 	U 	V 	W 	X 	Y 	Z 	[ 	\ 	] 	^ 	_
+        ///` 	a 	b 	c 	d 	e 	f 	g 	h 	i 	j 	k [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Unicode_characters {
+            get {
+                return ResourceManager.GetString("Unicode_characters", resourceCulture);
             }
         }
     }

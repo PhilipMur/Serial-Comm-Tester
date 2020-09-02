@@ -93,6 +93,7 @@
             this.btnRtsOn = new System.Windows.Forms.Button();
             this.btnRtsOff = new System.Windows.Forms.Button();
             this.textBoxRTS = new System.Windows.Forms.TextBox();
+            this.textBoxReadTime = new System.Windows.Forms.TextBox();
             this.btnDtrOn = new System.Windows.Forms.Button();
             this.textBoxDTR = new System.Windows.Forms.TextBox();
             this.btnDtrOff = new System.Windows.Forms.Button();
@@ -105,8 +106,10 @@
             this.textBoxCD = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.textBoxCTS = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.comboBoxWriteTimeout = new System.Windows.Forms.ComboBox();
+            this.textBoxWriteTime = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.textBoxRI = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -139,7 +142,6 @@
             this.checkBoxBringToFront = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabSettings = new System.Windows.Forms.TabPage();
-            this.numUpDwnRxDelay = new System.Windows.Forms.NumericUpDown();
             this.tabSerialPortInfo = new System.Windows.Forms.TabPage();
             this.lblRxSent = new System.Windows.Forms.Label();
             this.lblTxSent = new System.Windows.Forms.Label();
@@ -152,22 +154,6 @@
             this.ckBAppendLogs = new System.Windows.Forms.CheckBox();
             this.ckBEnableLogs = new System.Windows.Forms.CheckBox();
             this.btnFont = new System.Windows.Forms.Button();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.rBtnHex = new System.Windows.Forms.RadioButton();
-            this.rBtnText = new System.Windows.Forms.RadioButton();
-            this.label34 = new System.Windows.Forms.Label();
-            this.lblAutoReplyLineCount = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.txtBFileReplySplitter = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lblIsAutoFileLoaded = new System.Windows.Forms.Label();
-            this.btnChooseFileAutoReply = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.rBtnDisableAutoReply = new System.Windows.Forms.RadioButton();
-            this.rBtnEnableAutoReply = new System.Windows.Forms.RadioButton();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabRecieve = new System.Windows.Forms.TabPage();
             this.tabHexRead = new System.Windows.Forms.TabPage();
@@ -187,9 +173,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.timerGraph = new System.Windows.Forms.Timer(this.components);
-            this.label31 = new System.Windows.Forms.Label();
-            this.lblAutoReplyActive = new System.Windows.Forms.Label();
-            this.bgwAutoReply = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -203,14 +186,9 @@
             this.contextMenuStripHex.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDwnRxDelay)).BeginInit();
             this.tabSerialPortInfo.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabRecieve.SuspendLayout();
             this.tabHexRead.SuspendLayout();
@@ -701,14 +679,12 @@
             // 
             this.btnSave.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnSave.Enabled = false;
-            this.btnSave.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(536, 34);
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.Location = new System.Drawing.Point(536, 38);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(169, 30);
+            this.btnSave.Size = new System.Drawing.Size(169, 24);
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Save Readings";
             this.toolTip1.SetToolTip(this.btnSave, "Save the current received information to a file.");
@@ -880,8 +856,6 @@
             // 
             // serialPort1
             // 
-            this.serialPort1.ErrorReceived += new System.IO.Ports.SerialErrorReceivedEventHandler(this.serialPort1_ErrorReceived);
-            this.serialPort1.PinChanged += new System.IO.Ports.SerialPinChangedEventHandler(this.serialPort1_PinChanged);
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // btnClearAllText
@@ -996,12 +970,11 @@
             // 
             // btnRefreshComPorts
             // 
-            this.btnRefreshComPorts.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnRefreshComPorts.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnRefreshComPorts.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRefreshComPorts.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.btnRefreshComPorts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefreshComPorts.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRefreshComPorts.ForeColor = System.Drawing.Color.White;
             this.btnRefreshComPorts.Location = new System.Drawing.Point(251, 6);
             this.btnRefreshComPorts.Name = "btnRefreshComPorts";
             this.btnRefreshComPorts.Size = new System.Drawing.Size(126, 36);
@@ -1100,6 +1073,16 @@
             this.textBoxRTS.TabStop = false;
             this.toolTip1.SetToolTip(this.textBoxRTS, "Ready To Send.\r\nPin 7 on the RS232 DB9.");
             // 
+            // textBoxReadTime
+            // 
+            this.textBoxReadTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxReadTime.Location = new System.Drawing.Point(651, 101);
+            this.textBoxReadTime.Name = "textBoxReadTime";
+            this.textBoxReadTime.ReadOnly = true;
+            this.textBoxReadTime.Size = new System.Drawing.Size(60, 20);
+            this.textBoxReadTime.TabIndex = 25;
+            this.textBoxReadTime.TabStop = false;
+            // 
             // btnDtrOn
             // 
             this.btnDtrOn.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -1176,11 +1159,11 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(602, 85);
+            this.label10.Location = new System.Drawing.Point(646, 85);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(79, 13);
+            this.label10.Size = new System.Drawing.Size(70, 13);
             this.label10.TabIndex = 31;
-            this.label10.Text = "Rx Read Delay";
+            this.label10.Text = "Read Default";
             // 
             // textBoxDSR
             // 
@@ -1245,6 +1228,16 @@
             this.textBoxCTS.TabStop = false;
             this.toolTip1.SetToolTip(this.textBoxCTS, "Clear To Send.\r\nPin 8 on the RS232 DB9.");
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(565, 87);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(69, 13);
+            this.label14.TabIndex = 41;
+            this.label14.Text = "Write Default";
+            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -1272,6 +1265,16 @@
             this.comboBoxWriteTimeout.Text = "500";
             this.toolTip1.SetToolTip(this.comboBoxWriteTimeout, "Serial writout time.");
             this.comboBoxWriteTimeout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboBoxWriteTimeout_KeyPress);
+            // 
+            // textBoxWriteTime
+            // 
+            this.textBoxWriteTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxWriteTime.Location = new System.Drawing.Point(569, 101);
+            this.textBoxWriteTime.Name = "textBoxWriteTime";
+            this.textBoxWriteTime.ReadOnly = true;
+            this.textBoxWriteTime.Size = new System.Drawing.Size(60, 20);
+            this.textBoxWriteTime.TabIndex = 38;
+            this.textBoxWriteTime.TabStop = false;
             // 
             // label16
             // 
@@ -1347,7 +1350,7 @@
             // 
             this.timerCTSETC.Enabled = true;
             this.timerCTSETC.Interval = 50;
-            this.timerCTSETC.Tick += new System.EventHandler(this.timerCTSETC_Tick);
+            this.timerCTSETC.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // richTextBoxDec
             // 
@@ -1475,7 +1478,7 @@
             this.btnClearInOutBuff.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClearInOutBuff.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.btnClearInOutBuff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClearInOutBuff.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearInOutBuff.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearInOutBuff.Location = new System.Drawing.Point(523, 34);
             this.btnClearInOutBuff.Name = "btnClearInOutBuff";
             this.btnClearInOutBuff.Size = new System.Drawing.Size(195, 46);
@@ -1509,7 +1512,6 @@
             this.comboBoxDecodeFormat.Size = new System.Drawing.Size(94, 21);
             this.comboBoxDecodeFormat.TabIndex = 1;
             this.toolTip1.SetToolTip(this.comboBoxDecodeFormat, "Set\'s the displayed text format / Encoding type.");
-            this.comboBoxDecodeFormat.SelectedIndexChanged += new System.EventHandler(this.comboBoxDecodeFormat_SelectedIndexChanged);
             // 
             // label21
             // 
@@ -1535,16 +1537,15 @@
             // 
             // btnConversion
             // 
-            this.btnConversion.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnConversion.BackColor = System.Drawing.Color.PowderBlue;
             this.btnConversion.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConversion.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnConversion.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnConversion.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.btnConversion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConversion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConversion.ForeColor = System.Drawing.Color.White;
-            this.btnConversion.Location = new System.Drawing.Point(536, 67);
+            this.btnConversion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConversion.Location = new System.Drawing.Point(536, 70);
             this.btnConversion.Name = "btnConversion";
-            this.btnConversion.Size = new System.Drawing.Size(169, 30);
+            this.btnConversion.Size = new System.Drawing.Size(169, 24);
             this.btnConversion.TabIndex = 62;
             this.btnConversion.Text = "Conversion Tables";
             this.toolTip1.SetToolTip(this.btnConversion, "Extra features");
@@ -1554,7 +1555,7 @@
             // timerTextLenght
             // 
             this.timerTextLenght.Enabled = true;
-            this.timerTextLenght.Tick += new System.EventHandler(this.timerTextLenght_Tick);
+            this.timerTextLenght.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // label18
             // 
@@ -1649,7 +1650,6 @@
             this.tabControl1.Controls.Add(this.tabSettings);
             this.tabControl1.Controls.Add(this.tabSerialPortInfo);
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(12, 5);
@@ -1661,7 +1661,6 @@
             // tabSettings
             // 
             this.tabSettings.BackColor = System.Drawing.Color.DarkGray;
-            this.tabSettings.Controls.Add(this.numUpDwnRxDelay);
             this.tabSettings.Controls.Add(this.textBox11);
             this.tabSettings.Controls.Add(this.btnRefreshComPorts);
             this.tabSettings.Controls.Add(this.comboBoxActiveComPorts);
@@ -1679,10 +1678,13 @@
             this.tabSettings.Controls.Add(this.comboBoxFlow);
             this.tabSettings.Controls.Add(this.label8);
             this.tabSettings.Controls.Add(this.comboBoxWriteTimeout);
+            this.tabSettings.Controls.Add(this.textBoxReadTime);
             this.tabSettings.Controls.Add(this.comboBoxReadTimeout);
             this.tabSettings.Controls.Add(this.label9);
             this.tabSettings.Controls.Add(this.label10);
+            this.tabSettings.Controls.Add(this.textBoxWriteTime);
             this.tabSettings.Controls.Add(this.label15);
+            this.tabSettings.Controls.Add(this.label14);
             this.tabSettings.Cursor = System.Windows.Forms.Cursors.Default;
             this.tabSettings.Location = new System.Drawing.Point(4, 25);
             this.tabSettings.Name = "tabSettings";
@@ -1690,32 +1692,6 @@
             this.tabSettings.Size = new System.Drawing.Size(727, 132);
             this.tabSettings.TabIndex = 0;
             this.tabSettings.Text = "Settings";
-            // 
-            // numUpDwnRxDelay
-            // 
-            this.numUpDwnRxDelay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.numUpDwnRxDelay.Location = new System.Drawing.Point(597, 100);
-            this.numUpDwnRxDelay.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numUpDwnRxDelay.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numUpDwnRxDelay.Name = "numUpDwnRxDelay";
-            this.numUpDwnRxDelay.Size = new System.Drawing.Size(88, 20);
-            this.numUpDwnRxDelay.TabIndex = 61;
-            this.toolTip1.SetToolTip(this.numUpDwnRxDelay, "Delay on the read sample rate, Normally 100ms before the full message is received" +
-        ".");
-            this.numUpDwnRxDelay.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numUpDwnRxDelay.ValueChanged += new System.EventHandler(this.numUpDwnRxDelay_ValueChanged);
             // 
             // tabSerialPortInfo
             // 
@@ -1793,16 +1769,14 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(536, 100);
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(536, 102);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(169, 30);
+            this.button1.Size = new System.Drawing.Size(169, 24);
             this.button1.TabIndex = 72;
-            this.button1.Text = "Checksum Calculator";
+            this.button1.Text = "Checksum Calc";
             this.toolTip1.SetToolTip(this.button1, "Save the current received information to a file.");
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -1825,30 +1799,30 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label26.Location = new System.Drawing.Point(13, 97);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(78, 15);
+            this.label26.Size = new System.Drawing.Size(118, 13);
             this.label26.TabIndex = 4;
-            this.label26.Text = "Logging To : ";
+            this.label26.Text = "Logging File Path : ";
             // 
             // lblDataLogFilePath
             // 
             this.lblDataLogFilePath.AutoSize = true;
-            this.lblDataLogFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDataLogFilePath.Location = new System.Drawing.Point(97, 97);
+            this.lblDataLogFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDataLogFilePath.Location = new System.Drawing.Point(137, 97);
             this.lblDataLogFilePath.Name = "lblDataLogFilePath";
-            this.lblDataLogFilePath.Size = new System.Drawing.Size(14, 15);
+            this.lblDataLogFilePath.Size = new System.Drawing.Size(14, 13);
             this.lblDataLogFilePath.TabIndex = 3;
             this.lblDataLogFilePath.Text = "?";
             // 
             // ckBOverwriteLogs
             // 
             this.ckBOverwriteLogs.AutoSize = true;
-            this.ckBOverwriteLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ckBOverwriteLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ckBOverwriteLogs.Location = new System.Drawing.Point(17, 71);
             this.ckBOverwriteLogs.Name = "ckBOverwriteLogs";
-            this.ckBOverwriteLogs.Size = new System.Drawing.Size(142, 19);
+            this.ckBOverwriteLogs.Size = new System.Drawing.Size(129, 17);
             this.ckBOverwriteLogs.TabIndex = 2;
             this.ckBOverwriteLogs.Text = "Overwrite Log File";
             this.ckBOverwriteLogs.UseVisualStyleBackColor = true;
@@ -1859,10 +1833,10 @@
             this.ckBAppendLogs.AutoSize = true;
             this.ckBAppendLogs.Checked = true;
             this.ckBAppendLogs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckBAppendLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ckBAppendLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ckBAppendLogs.Location = new System.Drawing.Point(17, 45);
             this.ckBAppendLogs.Name = "ckBAppendLogs";
-            this.ckBAppendLogs.Size = new System.Drawing.Size(130, 19);
+            this.ckBAppendLogs.Size = new System.Drawing.Size(118, 17);
             this.ckBAppendLogs.TabIndex = 1;
             this.ckBAppendLogs.Text = "Append Log File";
             this.ckBAppendLogs.UseVisualStyleBackColor = true;
@@ -1871,10 +1845,10 @@
             // ckBEnableLogs
             // 
             this.ckBEnableLogs.AutoSize = true;
-            this.ckBEnableLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ckBEnableLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ckBEnableLogs.Location = new System.Drawing.Point(17, 19);
             this.ckBEnableLogs.Name = "ckBEnableLogs";
-            this.ckBEnableLogs.Size = new System.Drawing.Size(120, 19);
+            this.ckBEnableLogs.Size = new System.Drawing.Size(108, 17);
             this.ckBEnableLogs.TabIndex = 0;
             this.ckBEnableLogs.Text = "Enable Logger";
             this.ckBEnableLogs.UseVisualStyleBackColor = true;
@@ -1883,239 +1857,17 @@
             // 
             // btnFont
             // 
-            this.btnFont.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnFont.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnFont.BackColor = System.Drawing.Color.PowderBlue;
             this.btnFont.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.btnFont.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFont.ForeColor = System.Drawing.Color.White;
-            this.btnFont.Location = new System.Drawing.Point(536, 1);
+            this.btnFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFont.Location = new System.Drawing.Point(536, 6);
             this.btnFont.Name = "btnFont";
-            this.btnFont.Size = new System.Drawing.Size(169, 30);
+            this.btnFont.Size = new System.Drawing.Size(169, 24);
             this.btnFont.TabIndex = 65;
             this.btnFont.Text = "Set Font Size";
             this.btnFont.UseVisualStyleBackColor = false;
             this.btnFont.Click += new System.EventHandler(this.btnFont_Click);
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.Color.DarkGray;
-            this.tabPage3.Controls.Add(this.groupBox5);
-            this.tabPage3.Controls.Add(this.label34);
-            this.tabPage3.Controls.Add(this.lblAutoReplyLineCount);
-            this.tabPage3.Controls.Add(this.groupBox4);
-            this.tabPage3.Controls.Add(this.label7);
-            this.tabPage3.Controls.Add(this.lblIsAutoFileLoaded);
-            this.tabPage3.Controls.Add(this.btnChooseFileAutoReply);
-            this.tabPage3.Controls.Add(this.groupBox3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(727, 132);
-            this.tabPage3.TabIndex = 3;
-            this.tabPage3.Text = "Auto Reply Setup";
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.groupBox5.Controls.Add(this.rBtnHex);
-            this.groupBox5.Controls.Add(this.rBtnText);
-            this.groupBox5.Cursor = System.Windows.Forms.Cursors.Default;
-            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(7, 75);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(279, 51);
-            this.groupBox5.TabIndex = 2;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Read in File Type";
-            // 
-            // rBtnHex
-            // 
-            this.rBtnHex.AutoSize = true;
-            this.rBtnHex.BackColor = System.Drawing.Color.Transparent;
-            this.rBtnHex.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rBtnHex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rBtnHex.ForeColor = System.Drawing.Color.Black;
-            this.rBtnHex.Location = new System.Drawing.Point(150, 22);
-            this.rBtnHex.Name = "rBtnHex";
-            this.rBtnHex.Size = new System.Drawing.Size(123, 19);
-            this.rBtnHex.TabIndex = 1;
-            this.rBtnHex.Text = "Read in as Hex";
-            this.rBtnHex.UseVisualStyleBackColor = false;
-            // 
-            // rBtnText
-            // 
-            this.rBtnText.AutoSize = true;
-            this.rBtnText.BackColor = System.Drawing.Color.Transparent;
-            this.rBtnText.Checked = true;
-            this.rBtnText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rBtnText.ForeColor = System.Drawing.Color.Black;
-            this.rBtnText.Location = new System.Drawing.Point(17, 22);
-            this.rBtnText.Name = "rBtnText";
-            this.rBtnText.Size = new System.Drawing.Size(125, 19);
-            this.rBtnText.TabIndex = 0;
-            this.rBtnText.TabStop = true;
-            this.rBtnText.Text = "Read in as Text";
-            this.rBtnText.UseVisualStyleBackColor = false;
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.ForeColor = System.Drawing.Color.Black;
-            this.label34.Location = new System.Drawing.Point(303, 110);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(76, 16);
-            this.label34.TabIndex = 11;
-            this.label34.Text = "Line Count :";
-            // 
-            // lblAutoReplyLineCount
-            // 
-            this.lblAutoReplyLineCount.AutoSize = true;
-            this.lblAutoReplyLineCount.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lblAutoReplyLineCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAutoReplyLineCount.ForeColor = System.Drawing.Color.Black;
-            this.lblAutoReplyLineCount.Location = new System.Drawing.Point(384, 110);
-            this.lblAutoReplyLineCount.Name = "lblAutoReplyLineCount";
-            this.lblAutoReplyLineCount.Size = new System.Drawing.Size(15, 16);
-            this.lblAutoReplyLineCount.TabIndex = 10;
-            this.lblAutoReplyLineCount.Text = "?";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.groupBox4.Controls.Add(this.label33);
-            this.groupBox4.Controls.Add(this.label32);
-            this.groupBox4.Controls.Add(this.txtBFileReplySplitter);
-            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.ForeColor = System.Drawing.Color.Black;
-            this.groupBox4.Location = new System.Drawing.Point(292, 7);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(272, 62);
-            this.groupBox4.TabIndex = 9;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Lines of File Reply Splitter";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label33.Location = new System.Drawing.Point(163, 37);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(80, 13);
-            this.label33.TabIndex = 5;
-            this.label33.Text = "Reply Message";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.Location = new System.Drawing.Point(22, 37);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(99, 13);
-            this.label32.TabIndex = 4;
-            this.label32.Text = "Message Received";
-            // 
-            // txtBFileReplySplitter
-            // 
-            this.txtBFileReplySplitter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBFileReplySplitter.Location = new System.Drawing.Point(127, 29);
-            this.txtBFileReplySplitter.MaxLength = 1;
-            this.txtBFileReplySplitter.Name = "txtBFileReplySplitter";
-            this.txtBFileReplySplitter.Size = new System.Drawing.Size(30, 26);
-            this.txtBFileReplySplitter.TabIndex = 2;
-            this.txtBFileReplySplitter.Text = ",";
-            this.txtBFileReplySplitter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtBFileReplySplitter, "The separator between the message received and the response message");
-            this.txtBFileReplySplitter.TextChanged += new System.EventHandler(this.txtBFileReplySplitter_TextChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(292, 88);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(86, 16);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "File Loaded :";
-            // 
-            // lblIsAutoFileLoaded
-            // 
-            this.lblIsAutoFileLoaded.AutoSize = true;
-            this.lblIsAutoFileLoaded.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lblIsAutoFileLoaded.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIsAutoFileLoaded.ForeColor = System.Drawing.Color.Black;
-            this.lblIsAutoFileLoaded.Location = new System.Drawing.Point(384, 88);
-            this.lblIsAutoFileLoaded.Name = "lblIsAutoFileLoaded";
-            this.lblIsAutoFileLoaded.Size = new System.Drawing.Size(15, 16);
-            this.lblIsAutoFileLoaded.TabIndex = 7;
-            this.lblIsAutoFileLoaded.Text = "?";
-            // 
-            // btnChooseFileAutoReply
-            // 
-            this.btnChooseFileAutoReply.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnChooseFileAutoReply.Enabled = false;
-            this.btnChooseFileAutoReply.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.btnChooseFileAutoReply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnChooseFileAutoReply.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChooseFileAutoReply.ForeColor = System.Drawing.Color.White;
-            this.btnChooseFileAutoReply.Location = new System.Drawing.Point(570, 3);
-            this.btnChooseFileAutoReply.Name = "btnChooseFileAutoReply";
-            this.btnChooseFileAutoReply.Size = new System.Drawing.Size(151, 66);
-            this.btnChooseFileAutoReply.TabIndex = 6;
-            this.btnChooseFileAutoReply.Text = "Choose Auto Reply From File";
-            this.toolTip1.SetToolTip(this.btnChooseFileAutoReply, "Choose a file to use for automatic replys.");
-            this.btnChooseFileAutoReply.UseVisualStyleBackColor = false;
-            this.btnChooseFileAutoReply.Click += new System.EventHandler(this.btnChooseFileAutoReply_Click);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.groupBox3.Controls.Add(this.rBtnDisableAutoReply);
-            this.groupBox3.Controls.Add(this.rBtnEnableAutoReply);
-            this.groupBox3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(7, 6);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(279, 63);
-            this.groupBox3.TabIndex = 0;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Auto Reply On Message Received ";
-            // 
-            // rBtnDisableAutoReply
-            // 
-            this.rBtnDisableAutoReply.AutoSize = true;
-            this.rBtnDisableAutoReply.BackColor = System.Drawing.Color.Transparent;
-            this.rBtnDisableAutoReply.Checked = true;
-            this.rBtnDisableAutoReply.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rBtnDisableAutoReply.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rBtnDisableAutoReply.ForeColor = System.Drawing.Color.Black;
-            this.rBtnDisableAutoReply.Location = new System.Drawing.Point(150, 26);
-            this.rBtnDisableAutoReply.Name = "rBtnDisableAutoReply";
-            this.rBtnDisableAutoReply.Size = new System.Drawing.Size(114, 19);
-            this.rBtnDisableAutoReply.TabIndex = 1;
-            this.rBtnDisableAutoReply.TabStop = true;
-            this.rBtnDisableAutoReply.Text = "Disable Reply";
-            this.rBtnDisableAutoReply.UseVisualStyleBackColor = false;
-            this.rBtnDisableAutoReply.CheckedChanged += new System.EventHandler(this.rBtnDisableAutoReply_CheckedChanged);
-            // 
-            // rBtnEnableAutoReply
-            // 
-            this.rBtnEnableAutoReply.AutoSize = true;
-            this.rBtnEnableAutoReply.BackColor = System.Drawing.Color.Transparent;
-            this.rBtnEnableAutoReply.Enabled = false;
-            this.rBtnEnableAutoReply.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rBtnEnableAutoReply.ForeColor = System.Drawing.Color.Black;
-            this.rBtnEnableAutoReply.Location = new System.Drawing.Point(17, 26);
-            this.rBtnEnableAutoReply.Name = "rBtnEnableAutoReply";
-            this.rBtnEnableAutoReply.Size = new System.Drawing.Size(110, 19);
-            this.rBtnEnableAutoReply.TabIndex = 0;
-            this.rBtnEnableAutoReply.Text = "Enable Reply";
-            this.rBtnEnableAutoReply.UseVisualStyleBackColor = false;
-            this.rBtnEnableAutoReply.CheckedChanged += new System.EventHandler(this.rBtnEnableAutoReply_CheckedChanged);
             // 
             // tabControl2
             // 
@@ -2339,49 +2091,18 @@
             this.toolTip1.AutoPopDelay = 10000;
             this.toolTip1.InitialDelay = 500;
             this.toolTip1.ReshowDelay = 100;
-            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
             // timerGraph
             // 
             this.timerGraph.Interval = 1000;
             this.timerGraph.Tick += new System.EventHandler(this.timerGraph_Tick);
             // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.ForeColor = System.Drawing.Color.White;
-            this.label31.Location = new System.Drawing.Point(766, 169);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(83, 15);
-            this.label31.TabIndex = 71;
-            this.label31.Text = "Auto Reply :";
-            // 
-            // lblAutoReplyActive
-            // 
-            this.lblAutoReplyActive.AutoSize = true;
-            this.lblAutoReplyActive.BackColor = System.Drawing.Color.White;
-            this.lblAutoReplyActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAutoReplyActive.Location = new System.Drawing.Point(855, 169);
-            this.lblAutoReplyActive.Name = "lblAutoReplyActive";
-            this.lblAutoReplyActive.Size = new System.Drawing.Size(56, 15);
-            this.lblAutoReplyActive.TabIndex = 72;
-            this.lblAutoReplyActive.Text = "inactive";
-            this.lblAutoReplyActive.TextChanged += new System.EventHandler(this.lblAutoReplyActive_TextChanged);
-            // 
-            // bgwAutoReply
-            // 
-            this.bgwAutoReply.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwAutoReply_DoWork);
-            this.bgwAutoReply.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwAutoReply_RunWorkerCompleted);
-            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(1066, 613);
-            this.Controls.Add(this.lblAutoReplyActive);
-            this.Controls.Add(this.label31);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.tabControl1);
@@ -2422,20 +2143,11 @@
             this.tabControl1.ResumeLayout(false);
             this.tabSettings.ResumeLayout(false);
             this.tabSettings.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDwnRxDelay)).EndInit();
             this.tabSerialPortInfo.ResumeLayout(false);
             this.tabSerialPortInfo.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabRecieve.ResumeLayout(false);
             this.tabRecieve.PerformLayout();
@@ -2486,6 +2198,7 @@
         private System.Windows.Forms.Button btnRtsOn;
         private System.Windows.Forms.Button btnRtsOff;
         private System.Windows.Forms.TextBox textBoxRTS;
+        private System.Windows.Forms.TextBox textBoxReadTime;
         private System.Windows.Forms.Button btnDtrOn;
         private System.Windows.Forms.TextBox textBoxDTR;
         private System.Windows.Forms.Button btnDtrOff;
@@ -2498,8 +2211,10 @@
         private System.Windows.Forms.TextBox textBoxCD;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textBoxCTS;
+        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox comboBoxWriteTimeout;
+        private System.Windows.Forms.TextBox textBoxWriteTime;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBoxRI;
         private System.Windows.Forms.Label label17;
@@ -2591,26 +2306,6 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label lblCountTX;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label lblIsAutoFileLoaded;
-        private System.Windows.Forms.Button btnChooseFileAutoReply;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.RadioButton rBtnDisableAutoReply;
-        private System.Windows.Forms.RadioButton rBtnEnableAutoReply;
-        private System.Windows.Forms.TextBox txtBFileReplySplitter;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Label lblAutoReplyActive;
-        private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.Label lblAutoReplyLineCount;
-        private System.ComponentModel.BackgroundWorker bgwAutoReply;
-        private System.Windows.Forms.NumericUpDown numUpDwnRxDelay;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.RadioButton rBtnHex;
-        private System.Windows.Forms.RadioButton rBtnText;
     }
 }
 

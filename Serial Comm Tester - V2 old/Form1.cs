@@ -33,7 +33,6 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using System.Collections.Generic;
 
 namespace Serial_Comm_Tester
 {
@@ -46,27 +45,6 @@ namespace Serial_Comm_Tester
         private int TXcounter = 0;
         private int rXChartCount = 0;
         private int tXChartCount = 0;
-
-        private Encoding serialPortEncoding;
-
-        private Dictionary<string, string> myAutoReplyDic;
-        private char autoReplySplitterChar = ','; //default auto reply text splitter
-        private bool isAutoReplyEnabled = false;
-        private string autoReplyStringToMatch = "";
-        private string autoReplyMessage = "";
-
-        private bool ischkBAutoReadHexChecked = false;
-        private bool ischkBAutoReadDecChecked = false;
-        private bool ischkBAutoReadChecked = false;
-
-        private bool ischeckBox2DECChecked = false;
-        private bool ischeckBox3DECChecked = false;
-        private bool ischeckBoxSendHexChecked = false;
-        private bool ischeckBoxSendDecChecked = false;
-
-        private int rxDelayTime = 100;
-
-
 
         public Form1()
         {
@@ -93,64 +71,54 @@ namespace Serial_Comm_Tester
             //new code with unicode encoding iso-8859-1
             if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "windows-1252")
             {
-                serialPortEncoding = Encoding.GetEncoding("windows-1252");
-                // serialPort1.Encoding = Encoding.GetEncoding("windows-1252");
+                serialPort1.Encoding = Encoding.GetEncoding("windows-1252");
             }
-            else if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "utf-8")
+            if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "utf-8")
             {
-                serialPortEncoding = Encoding.GetEncoding("utf-8");
-                // serialPort1.Encoding = Encoding.GetEncoding("utf-8");
+                serialPort1.Encoding = Encoding.GetEncoding("utf-8");
             }
-            else if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "utf-16")
+            if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "utf-16")
             {
-                serialPortEncoding = Encoding.GetEncoding("utf-16");
-                // serialPort1.Encoding = Encoding.GetEncoding("utf-16");
+                serialPort1.Encoding = Encoding.GetEncoding("utf-16");
             }
-            else if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "us-ASCII")
+            if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "us-ASCII")
             {
-                serialPortEncoding = Encoding.GetEncoding("us-ASCII");
-                // serialPort1.Encoding = Encoding.GetEncoding("us-ASCII");
+                serialPort1.Encoding = Encoding.GetEncoding("us-ASCII");
             }
-            else if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "extended-ASCII")
+            if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "extended-ASCII")
             {
-                serialPortEncoding = Encoding.GetEncoding(28591);
-                // serialPort1.Encoding = Encoding.GetEncoding(28591);
+                serialPort1.Encoding = Encoding.GetEncoding(28591);
             }
 
-            else if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "IBM-437")
+            if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "IBM-437")
             {
-                serialPortEncoding = Encoding.GetEncoding(437);
-                // serialPort1.Encoding = Encoding.GetEncoding(437);
+                serialPort1.Encoding = Encoding.GetEncoding(437);
             }
-            else if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "iso-8859-1")
+            if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "iso-8859-1")
             {
-                serialPortEncoding = Encoding.GetEncoding("iso-8859-1");
-                // serialPort1.Encoding = Encoding.GetEncoding("iso-8859-1");
+                serialPort1.Encoding = Encoding.GetEncoding("iso-8859-1");
             }
-
-            else if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "utf-32")
+         
+            if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "utf-32")
             {
-                serialPortEncoding = Encoding.GetEncoding("utf-32");
-                // serialPort1.Encoding = Encoding.GetEncoding("utf-32");
+                serialPort1.Encoding = Encoding.GetEncoding("utf-32");
             }
 
-            else if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "utf-16-BigEndian")
+            if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "utf-16-BigEndian")
             {
-                serialPortEncoding = Encoding.BigEndianUnicode;
-                // serialPort1.Encoding = Encoding.BigEndianUnicode;
+                serialPort1.Encoding = Encoding.BigEndianUnicode;
             }
-            else if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "utf-32-BigEndian")
+            if (serialPort1.IsOpen && btnOpenPort.Enabled == false && comBoBoxformatText == "utf-32-BigEndian")
             {
-                serialPortEncoding = new UTF32Encoding(true, true);
-                // serialPort1.Encoding = new UTF32Encoding(true, true);
+                serialPort1.Encoding = new  UTF32Encoding(true,true);
             }
+          
 
-            serialPort1.Encoding = serialPortEncoding;
 
 
         }
         //this code reads the serial port but catches a timeout exception
-        private void btnRead_Click(object sender, EventArgs e)
+        private async void btnRead_Click(object sender, EventArgs e)
         {
             if (serialPort1.IsOpen)
             {
@@ -158,7 +126,7 @@ namespace Serial_Comm_Tester
                 {
 
 
-                   // SerialEncoding();
+                    SerialEncoding();
 
 
                     string s = serialPort1.ReadExisting();
@@ -167,10 +135,10 @@ namespace Serial_Comm_Tester
                     richTextBoxRecieve.Text += s;
 
 
-                    if (s != "")
+                    if(s != "")
                     {
                         rXChartCount++; //update the samples per interval
-
+                       
 
                         RXcounter++;
                         lblRxSent.Update();
@@ -178,10 +146,16 @@ namespace Serial_Comm_Tester
                         //flash up rx
                         RX = true;
                     }
+                    
 
 
+                    //this is the original///////////////////////////
+                    //richTextBox2.Text += serialPort1.ReadExisting();
 
-                  
+                    // serialPort1.DiscardInBuffer();
+
+                   
+
                 }
                 catch (Exception ex)
                 {
@@ -196,8 +170,8 @@ namespace Serial_Comm_Tester
             }
             richTextBoxSend.Focus();
 
-            //await Task.Delay(100);
-            //RX = false;
+            await Task.Delay(100);
+            RX = false;
         }
 
         //this code just finds the available ports to use
@@ -226,14 +200,11 @@ namespace Serial_Comm_Tester
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            serialPortEncoding = Encoding.GetEncoding("windows-1252");
             comboBoxDecodeFormat.SelectedIndex = 0;
             comboBoxParity.SelectedIndex = 0;
             comboBoxDataBits.SelectedIndex = 3;
             comboBoxStopBits.SelectedIndex = 0;
             comboBoxFlow.SelectedIndex = 0;
-
-            ischkBAutoReadChecked = true;
         }
 
         //this code on button 3 click it checks to see if combobox1&2 are empty ,else combobox1 = port name
@@ -257,7 +228,7 @@ namespace Serial_Comm_Tester
                     richTextBoxHex.Text = "";
                     richTextBoxSend.Text = "";
 
-                    btnChooseFileAutoReply.Enabled = true;
+                   
 
                     progressBar1.Value = 25;
 
@@ -284,10 +255,10 @@ namespace Serial_Comm_Tester
                     serialPort1.DataBits = Convert.ToInt32(comboBoxDataBits.Text);
                     serialPort1.StopBits = (StopBits)Enum.Parse(typeof(StopBits), comboBoxStopBits.Text);
 
-                    if (comboBoxFlow.Text == "RTS/CTS")
+                    if(comboBoxFlow.Text == "RTS/CTS")
                     {
                         serialPort1.Handshake = (Handshake)Enum.Parse(typeof(Handshake), "None");
-
+                       
                         serialPort1.RtsEnable = true;
                         textBoxRTS.BackColor = Color.Lime;
                         textBoxRTS.Text = "Rts ON";
@@ -298,20 +269,20 @@ namespace Serial_Comm_Tester
                     {
                         serialPort1.Handshake = (Handshake)Enum.Parse(typeof(Handshake), comboBoxFlow.Text);
                     }
-
+                   
 
                     if (comboBoxFlow.Text != "None" | comboBoxFlow.Text != "XOnXOff")
                     {
                         chkBAutoRead.Enabled = false;
                         checkBoxAutoSend.Enabled = false;
-
-
+                      
+                       
                         chkBAutoReadDec.Checked = false;
                         chkBAutoReadHex.Checked = false;
                         chkBAutoReadDec.Enabled = false;
                         chkBAutoReadHex.Enabled = false;
 
-
+                        
 
 
                         chkBConvertToHexDec.Enabled = true; /////////
@@ -325,7 +296,7 @@ namespace Serial_Comm_Tester
                         //checkBoxSendOct.Enabled = true;
 
                     }
-
+                
 
                     //this code checks that readtimeout is set and if not it defaults to -1
                     if (comboBoxReadTimeout.Text != "")
@@ -384,16 +355,21 @@ namespace Serial_Comm_Tester
                     btnClosePort.Enabled = true;
                     btnRefreshComPorts.Enabled = false;
 
-
+                   
                     btnDtrOn.Enabled = true;
                     btnRtsOn.Enabled = true;
                     btnDtrOff.Enabled = false;
-                   
-
-                    serialPort1.RtsEnable = false;
-                    textBoxRTS.BackColor = Color.Red;
-                    textBoxRTS.Text = "Rts Off";
-
+                    //if(comboBoxFlow.Text == "RTS/CTS") //-----------------------------14/7/17
+                    //{
+                    //    textBoxRTS.BackColor = Color.Lime;
+                    //    textBoxRTS.Text = "Rts ON";
+                    //}
+                    //else
+                    //{
+                    //    textBoxRTS.BackColor = Color.Red;
+                    //    textBoxRTS.Text = "Rts Off";
+                    //}
+                    
                     serialPort1.DtrEnable = false;
                     textBoxDTR.BackColor = Color.Red;
                     textBoxDTR.Text = "Dtr Off";
@@ -409,18 +385,18 @@ namespace Serial_Comm_Tester
                     comboBoxStopBits.Enabled = false;
                     comboBoxWriteTimeout.Enabled = false;
 
-
+                 
 
 
                     //this gets the current value of read and write timeouts and displays in the textbox
-                    //textBoxReadTime.Text = serialPort1.ReadTimeout.ToString();
-                    //textBoxWriteTime.Text = serialPort1.WriteTimeout.ToString();
+                    textBoxReadTime.Text = serialPort1.ReadTimeout.ToString();
+                    textBoxWriteTime.Text = serialPort1.WriteTimeout.ToString();
 
                     progressBar1.Value = 100;
                     richTextBoxSend.Focus();
 
                     //this code checks if combobox has None enabled and is not using XOnXOff etc.....
-                    if (serialPort1.IsOpen && comboBoxFlow.Text == "None" | comboBoxFlow.Text == "XOnXOff")
+                    if (serialPort1.IsOpen && comboBoxFlow.Text == "None" | comboBoxFlow.Text == "XOnXOff" )
                     {
                         btnRtsOn.Enabled = true;
 
@@ -444,65 +420,10 @@ namespace Serial_Comm_Tester
                     //checkBoxSendBinary.Enabled = true;
                     //checkBoxSendOct.Enabled = true;
 
-
-                    //==================
-
-                    if (serialPort1.DsrHolding == true)
-                    {
-                        textBoxDSR.BackColor = Color.Lime;
-                        textBoxDSR.Text = "Dsr On";
-                    }
-                    else
-                    {
-                        textBoxDSR.BackColor = Color.LightSkyBlue;
-                        textBoxDSR.Text = "Dsr Off";
-                    }
-
-                    if (serialPort1.CDHolding == true)
-                    {
-                        textBoxCD.BackColor = Color.Lime;
-                        textBoxCD.Text = "CD On";
-                    }
-                    else
-                    {
-                        textBoxCD.BackColor = Color.LightSkyBlue;
-                        textBoxCD.Text = "CD Off";
-
-                    }
-
-                    if (serialPort1.CtsHolding == true)
-                    {
-                        textBoxCTS.BackColor = Color.Lime;
-                        textBoxCTS.Text = "Cts On";
-                    }
-                   else
-                    {
-                        textBoxCTS.BackColor = Color.LightSkyBlue;
-                        textBoxCTS.Text = "Cts Off";
-
-                    }
-
-                    //this code gets the the serial ring value
-                    //normally the ring only lasts a short time when activated like 2 seconds max
-                    textBoxRI.Text = "Ring";
-                    textBoxRI.BackColor = Color.LightSkyBlue;
-                  
-                    //this code gets the current state of a break point if a break on the input is detected
-                    textBoxBI.Text = "Break";
-                    if (serialPort1.BreakState)
-                    {
-                       
-                        textBoxBI.BackColor = Color.Lime;
-
-                    }
-                    else
-                    {
-                        textBoxBI.BackColor = Color.LightSkyBlue;
-
-                    }
+                 
 
                 }
-
+              
 
 
             }
@@ -521,15 +442,13 @@ namespace Serial_Comm_Tester
         private async void btnClosePort_Click(object sender, EventArgs e)
         {
             if (serialPort1.IsOpen == true)
+
             {
-
-                btnChooseFileAutoReply.Enabled = false;
-
                 ckBAppendLogs.Enabled = true;
                 ckBEnableLogs.Enabled = true;
                 ckBOverwriteLogs.Enabled = true;
 
-                if (comboBoxFlow.Text == "RTS/CTS")
+                if(comboBoxFlow.Text == "RTS/CTS")
                 {
                     serialPort1.RtsEnable = false;
                     textBoxRTS.BackColor = Color.Red;
@@ -539,18 +458,18 @@ namespace Serial_Comm_Tester
 
                 richTextBoxSend.Enabled = false;
                 btnRefreshComPorts.Enabled = true;
-                if (comboBoxFlow.Text == "None" | comboBoxFlow.Text == "XOnXOff")
+                if(comboBoxFlow.Text == "None" | comboBoxFlow.Text == "XOnXOff") 
                 {
                     serialPort1.RtsEnable = false;
                 }
-                if (serialPort1.DtrEnable)
+                if(serialPort1.DtrEnable)
                 {
                     serialPort1.DtrEnable = false;
                 }
                 textBoxRTS.BackColor = Color.Red;
-                // serialPort1.RtsEnable = false;  //---------------------------------------17/6/17
+               // serialPort1.RtsEnable = false;  //---------------------------------------17/6/17
                 textBoxRTS.Text = "Rts Off";
-
+                
                 textBoxDTR.BackColor = Color.Red;
                 textBoxDTR.Text = "Dtr Off";
                 textBoxDSR.BackColor = Color.LightSkyBlue;
@@ -609,7 +528,7 @@ namespace Serial_Comm_Tester
                 send_repeat_counter = 0;
 
 
-                txRepeaterDelay.Tick -= new EventHandler(SendData); //this removes the event handler
+               txRepeaterDelay.Tick -= new EventHandler(SendData); //this removes the event handler
                 txRepeaterDelay.Dispose(); //dispose of the new event handler
 
                 if (timerGraph.Enabled)
@@ -806,7 +725,7 @@ namespace Serial_Comm_Tester
 
         private static bool sendDataNoError = true;
 
-        private void SendData(object sender, EventArgs e)
+        private async void SendData(object sender, EventArgs e)
         {
             if (serialPort1.IsOpen && sendDataNoError == true)
             {
@@ -814,17 +733,11 @@ namespace Serial_Comm_Tester
 
                 if (send_repeat_counter < (int)send_repeat.Value)
                 {
+                        
 
-
-                    tx_data = richTextBoxSend.Text;
-
-                    tXChartCount++;//tx chart values per interval
-                    TXcounter++;
-
-                    lblTxSent.Update();
-                    lblTxSent.Text = "TX :" + TXcounter;
-
-                   
+                         tx_data = richTextBoxSend.Text;
+                    //progressBar1.Value = send_repeat_counter;
+                    //progressBar1.Update();
                     try
                     {
                         //THIS SEND NORMAL ENCODING EXAMPLE ASCII UTF-8 ETC
@@ -833,103 +746,127 @@ namespace Serial_Comm_Tester
                             if (boolCarrigeReturnLF == true)
                             {
                                 serialPort1.Write(tx_data + "\r\n");
-                               
+                              //  TX = true;
                             }
                             // serialPort1.Write(tx_data.Replace("\\n", Environment.NewLine));
                             if (boolCarrigeReturn == true)
                             {
                                 serialPort1.Write(tx_data + "\r");
-                              
+                              //  TX = true;
                             }
                             if (boolCarrigeReturn == false && boolCarrigeReturnLF == false)
                             {
                                 serialPort1.Write(tx_data);
-                               
+                              //  TX = true;
                             }
 
-                           
+                            // tx_terminal.AppendText("[TX]> " + tx_data + "\n");
+
                             TX = true;
 
-                           
+                         //   send_repeat_counter++;
+
+                            tXChartCount++;//tx chart values per interval
+
+                            TXcounter++;
+                            lblTxSent.Update();
+                            lblTxSent.Text = "TX :" + TXcounter;
                         }
 
-                        //this is to send the values as hexadecimal with or without carrige return and line feed
-                        if (checkBoxSendHex.Checked == true)
-                        {
+                            //this is to send the values as hexadecimal with or without carrige return and line feed
+                            if (checkBoxSendHex.Checked == true)
+                            {
                             string asciiToHexSend2 = ConvertHex(tx_data);
                             if (boolCarrigeReturnLF == true)
                             {
-                                
-                                serialPort1.Write(asciiToHexSend2 + "\r\n");
                                
+                                serialPort1.Write(asciiToHexSend2 + "\r\n");
+                               // TX = true;
                             }
                             if (boolCarrigeReturn == true)
                             {
-
+                               
                                 serialPort1.Write(asciiToHexSend2 + "\r");
-                                
+                              //  TX = true;
                             }
 
                             if (boolCarrigeReturn == false && boolCarrigeReturnLF == false)
                             {
-                                
+                              //  SerialEncoding();
+
+                             
                                 serialPort1.Write(asciiToHexSend2);
-
-
+                                
+                               
                             }
                             //for lighting up tx
                             TX = true;
-                           
+                           // send_repeat_counter++;
+
+                            tXChartCount++;//tx chart values per interval
+
+                            TXcounter++;
+                            lblTxSent.Update();
+                            lblTxSent.Text = "TX :" + TXcounter;
                         }
 
-
+                        
                         if (checkBoxSendDec.Checked == true)
                         {
                             string asciiToHexSend = ConvertDec(tx_data);
 
                             if (boolCarrigeReturnLF == true)
                             {
-                                
-                                serialPort1.Write(asciiToHexSend + "\r\n");
                                
+
+                                serialPort1.Write(asciiToHexSend + "\r\n");
+                              //  TX = true;
                             }
                             if (boolCarrigeReturn == true)
                             {
                                 serialPort1.Write(asciiToHexSend + "\r");
-                                
+                               // TX = true;
                             }
 
                             if (boolCarrigeReturn == false && boolCarrigeReturnLF == false)
                             {
-                                
+                               // SerialEncoding();
+
+
+
                                 serialPort1.Write(asciiToHexSend);
 
+                                
 
-
-
+                               
                             }
                             TX = true;
-                          
-                           
+                          //  send_repeat_counter++;
+
+                            tXChartCount++;//tx chart values per interval
+
+                            TXcounter++;
+                            lblTxSent.Update();
+                            lblTxSent.Text = "TX :" + TXcounter;
                         }
                         send_repeat_counter++;
                     }
                     catch
                     {
-
-                        // ComPortClosed();
+                      
+                       // ComPortClosed();
 
                         txRepeaterDelay.Stop();
                         send_repeat_counter = 0;
-                        MessageBox.Show("Can't write to " + serialPort1.PortName + " port is in use already!!");
+                        MessageBox.Show( "Can't write to " + serialPort1.PortName + " port is in use already!!");
                     }
                 }
 
             }
-            if (send_repeat_counter == (int)send_repeat.Value)
+            if(send_repeat_counter == (int)send_repeat.Value)
             {
                 txRepeaterDelay.Stop();
-
+                
                 // sendData.Text = "Send";
                 //send_repeat_counter = 1;
             }
@@ -939,33 +876,38 @@ namespace Serial_Comm_Tester
 
                 ComPortClosed();
                 txRepeaterDelay.Stop();
-
+                
                 send_repeat_counter = 0;
             }
 
-           
+            //if(send_repeat_counter == (int)send_repeat.Value)
+            //{
+            //    txRepeaterDelay.Stop();
+            //    // sendData.Text = "Send";
+            //    send_repeat_counter = 0;
+            //}
+            await Task.Delay(100);
+            TX = false;
         }
 
-        private void btnSend_Click(object sender, EventArgs e)   ///>>>>>>>>>>>>bool decsend
+        private  void btnSend_Click(object sender, EventArgs e)   ///>>>>>>>>>>>>bool decsend
         {
             send_repeat_counter = 0; //put this here as closing the form and reopening the form would dounble up on the send
 
             sendDataNoError = true;
 
-           // SerialEncoding();
-
             richTextBoxSend.Focus();
             //string removeSpaces = richTextBoxSend.Text.Replace(" " , "");   ///THIS WORKS BY SEEING IF THE STRING TO INT IS DIVISABLE BY 2 TO >>>>>>>>>>GENIUS I AM
             //int removeSpacesLenght = removeSpaces.Length;
             //if (removeSpacesLenght % 2 == 0 )
-            if (ischeckBox2DECChecked | ischeckBoxSendHexChecked)
+            if (checkBox2DEC.Checked | checkBoxSendHex.Checked)
             {
                 // MessageBox.Show("send is even");
                 DecSend = true;
             }
             //  cout << "String length is even" << endl;
             // else
-            if (ischeckBox3DECChecked)
+            if (checkBox3DEC.Checked)
             {
                 //  MessageBox.Show("send is odd");
                 DecSend = false;
@@ -976,38 +918,38 @@ namespace Serial_Comm_Tester
             if (serialPort1.IsOpen && richTextBoxSend.Text != "" && btnSend.Enabled)
                 try
                 {
-                    // SerialEncoding();
+                    SerialEncoding();
 
-                    if (ischeckBoxSendHexChecked == true)
+                    if (checkBoxSendHex.Checked == true)
                     {
-
+                       
 
                         txRepeaterDelay.Interval = (int)send_delay.Value;
                         txRepeaterDelay.Start();
 
                     }
                     //this writes decimal to the serial port
-                    if (ischeckBoxSendDecChecked == true)
+                    if (checkBoxSendDec.Checked == true)
                     {
-
+                        
 
                         txRepeaterDelay.Interval = (int)send_delay.Value;
                         txRepeaterDelay.Start();
-
+                      
 
                     }
 
                     ////this allows access to the value of comboBox1 cross threading
-                    if (ischeckBoxSendHexChecked == false && ischeckBoxSendDecChecked == false)
+                    if (checkBoxSendHex.Checked == false && checkBoxSendDec.Checked == false)
                     {
+                       
 
-
-                        // SerialEncoding();
+                        SerialEncoding();
 
                         txRepeaterDelay.Interval = (int)send_delay.Value;
                         txRepeaterDelay.Start();
 
-
+                      
                     }
                 }
                 catch (Exception ex)
@@ -1024,7 +966,7 @@ namespace Serial_Comm_Tester
                 ComPortClosed();
 
             }
-
+        
 
         }
         //this code makes sure on exit that the port closes too
@@ -1034,7 +976,7 @@ namespace Serial_Comm_Tester
             {
                 serialPort1.Close();
             }
-
+           
 
         }
         //this code gets the received data from the serial port and displya it in richtextbox2
@@ -1042,23 +984,114 @@ namespace Serial_Comm_Tester
         private string richboxHexString;
         private string richboxDecString;
 
-        public void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        public async void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+
+        {
+            
+            //this allows access to the value of comboBox1 cross threading
+            Invoke((MethodInvoker)delegate ()
+            {
+                comBoBoxformatText = comboBoxDecodeFormat.Text;
+                
+             
+            });
+
+
+            SerialEncoding();
+
+
+            //this code displays the hex values to richtextbox4 you cannot directly call data from the port as its a seperate thread
+            if (serialPort1.IsOpen && chkBAutoReadHex.Checked)
+                try {
+                    //this is the original ////////////////////////////////
+                    // richbox4string = serialPort1.ReadByte().ToString("X2") + "  ";
+
+
+                    richboxHexString = toHex(serialPort1.ReadExisting()); //>>>>>>>>>>>>>>>>>i changed this 2017
+                                                                        // richbox4string = ConvertHex(serialPort1.ReadExisting());
+                    Invoke(new EventHandler(displayAutoHex));
+
+                  
+
+                    RX = true;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            //this code gets the decimal value and displays it to richtextbox3
+            if (serialPort1.IsOpen && chkBAutoReadDec.Checked)
+                try {
+                    //this is the original
+                    //  richbox3string = serialPort1.ReadByte().ToString("") + "  ";
+
+                    richboxDecString = toDec(serialPort1.ReadExisting());
+
+                    this.Invoke(new EventHandler(displayAutoDec));
+
+                   
+
+                    RX = true;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            //this checks first to see if the port is open and the checked box is checked to read existing serial data
+            if (chkBAutoRead.Checked && serialPort1.IsOpen && chkBAutoReadDec.Checked == false && chkBAutoReadHex.Checked == false)
+            {
+                try
+                {
+                    //////////////////////////////////////////
+                    ////this code can read any desired encoding once its specified in the brackets
+                    //Modified 24/01/17 commented out
+                    //this allows access to the value of comboBox1 cross threading
+                    Invoke((MethodInvoker)delegate ()
+                    {
+                        comBoBoxformatText = comboBoxDecodeFormat.Text;
+
+
+                    });
+
+
+
+                    SerialEncoding();
+
+
+                    string s = serialPort1.ReadExisting();
+                    richbox2string = s;
+
+
+                    this.Invoke(new EventHandler(displayAutoText));
+
+                   
+
+                    RX = true;
+
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message, "Message ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (!serialPort1.IsOpen && chkBAutoRead.Checked)
+                {
+
+                    ComPortClosed();
+
+                }
+
+            }
+            await Task.Delay(100);
+            RX = false;
+        }
+       
+        //this code gets the hex value from the com port and drops to a new line if carrige return or line feed is displayed
+        private void displayAutoHex(object o, EventArgs e)
         {
           
-            //background worker will wait the RX read Delay time before collecting all the received data as 
-            //it can come in smaller chunks and we want the full message
-            if (bgwAutoReply.IsBusy == false)
-            {
-                bgwAutoReply.RunWorkerAsync();
-            }
-
-           
-        }
-
-        //this code gets the hex value from the com port and drops to a new line if carrige return or line feed is displayed
-        private void DisplayAutoHex(object o, EventArgs e)
-        {
-
 
             //richTextBoxHex.AppendText(SB.ToString());
             string[] hexSeparators = { "0A" };
@@ -1078,7 +1111,7 @@ namespace Serial_Comm_Tester
 
                     richTextBoxHex.AppendText(word + "0A" + "\n");
 
-                    WriteLogsToFile(word + "0A" + Environment.NewLine);
+                    writeLogsToFile(word + "0A" + Environment.NewLine);
                 }
 
             }
@@ -1090,23 +1123,31 @@ namespace Serial_Comm_Tester
 
                     richTextBoxHex.AppendText(word + "0D" + "\n");
 
-                    WriteLogsToFile(word + "0D" + Environment.NewLine);
+                    writeLogsToFile(word + "0D" + Environment.NewLine);
                 }
 
             }
-            else if (!hexValue.Contains("0A") | !hexValue.Contains("0D"))
+            else if(!hexValue.Contains("0A") | !hexValue.Contains("0D"))
             {
                 richTextBoxHex.AppendText(richboxHexString);
 
 
-                WriteLogsToFile(richboxHexString);
-
+                writeLogsToFile(richboxHexString);
+              
             }
 
+            // richTextBoxHex.AppendText(richbox4string);
+
+            rXChartCount++; //update the samples per interval
           
+
+            RXcounter++;
+            lblRxSent.Update();
+            lblRxSent.Text = "RX :" + RXcounter;
+
         }
         //THIS WRITES THE LOG FILES
-        private void WriteLogsToFile(string input)
+        private void writeLogsToFile(string input)
         {
             //this will write to log file
             if (ckBEnableLogs.Checked)
@@ -1114,11 +1155,11 @@ namespace Serial_Comm_Tester
                 try
                 {
                     // loggingFile.WriteAsync("Hello wtf");
-                    using (StreamWriter sw = new StreamWriter(lblDataLogFilePath.Text, ckBAppendLogs.Checked))
+                    using (StreamWriter tw = new StreamWriter(lblDataLogFilePath.Text, ckBAppendLogs.Checked))
                     {
                         // write a line of text to the file
-                        sw.Write(input);
-                        sw.Flush();
+                        tw.Write(input);
+                        tw.Flush();
                     }
 
                 }
@@ -1130,7 +1171,7 @@ namespace Serial_Comm_Tester
             }
         }
         //this code gets the dec value from com port and drops to a new line if carrige return or line feed is displayed
-        private void DisplayAutoDec(object o, EventArgs e)
+        private void displayAutoDec(object o, EventArgs e)
         {
             // richTextBoxDec.AppendText(richbox3string);
 
@@ -1152,12 +1193,12 @@ namespace Serial_Comm_Tester
 
                     richTextBoxDec.AppendText(word + "010" + "\n");
 
-                    WriteLogsToFile(word + "010" + Environment.NewLine);
+                    writeLogsToFile(word + "010" + Environment.NewLine);
                 }
 
             }
-
-            else if (decValue2.Contains("013"))
+           
+           else if (decValue2.Contains("013"))
             {
 
                 foreach (var word in decWords2)
@@ -1165,22 +1206,27 @@ namespace Serial_Comm_Tester
 
                     richTextBoxDec.AppendText(word + "013" + "\n");
 
-                    WriteLogsToFile(word + "013" + Environment.NewLine);
+                    writeLogsToFile(word + "013" + Environment.NewLine);
                 }
 
             }
 
-            else if (!decValue.Contains("010") && !decValue2.Contains("013"))
+            else if(!decValue.Contains("010") && !decValue2.Contains("013"))
             {
                 richTextBoxDec.AppendText(richboxDecString);
 
-                WriteLogsToFile(richboxDecString);
+                writeLogsToFile(richboxDecString);
             }
+            rXChartCount++; //update the samples per interval
+           
 
+            RXcounter++;
+            lblRxSent.Update();
+            lblRxSent.Text = "RX :" + RXcounter;
         }
-
+       
         //this code sends the received data to richtextbox2 and doesnt overwrite it
-        private void DisplayAutoText(object o, EventArgs e)
+        private void displayAutoText(object o, EventArgs e)
         {
             string[] textSeparators = { "\n" };
 
@@ -1194,46 +1240,42 @@ namespace Serial_Comm_Tester
 
             richTextBoxRecieve.AppendText(richbox2string);
 
+            rXChartCount++; //update the samples per interval
+           
+
+            RXcounter++;
+            lblRxSent.Update();
+            lblRxSent.Text = "RX :" + RXcounter;
 
             if (textValue.Contains("\r")) //if it has a carrige return go to a newline  
             {
                 foreach (var word in textWords)
                 {
 
-                    WriteLogsToFile(word + Environment.NewLine);
+                    writeLogsToFile(word + Environment.NewLine);
 
                 }
             }
-            else if (textValue2.Contains("\n")) //if it has a linefeed go to a newline  
+           else if (textValue2.Contains("\n")) //if it has a linefeed go to a newline  
             {
                 foreach (var word in textWords2)
                 {
 
-                    WriteLogsToFile(word + Environment.NewLine);
+                    writeLogsToFile(word + Environment.NewLine);
 
                 }
             }
 
-            else if (!textValue.Contains("\n") && !textValue2.Contains("\r"))
+            else if(!textValue.Contains("\n") && !textValue2.Contains("\r"))
             {
-                WriteLogsToFile(richbox2string);
+                writeLogsToFile(richbox2string);
 
             }
+             
 
-
-
-
-        }
-        /// <summary>
-        /// This will look through the Auto reply dictionary to find a match and reply to the message
-        /// </summary>
-        /// <param name="o"></param>
-        /// <param name="e"></param>
-        private void WriteAutoReplyMessage(object o, EventArgs e)
-        {
+          
 
         }
-
         //when the clear button is pressed it will clear both text boxes and clears in/out serial buffers
         private void btnClearAllText_Click(object sender, EventArgs e)
         {
@@ -1258,7 +1300,7 @@ namespace Serial_Comm_Tester
 
         }
         //this code sends the data in realtime when checkedbox2 is checked
-        private void richTextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        private async void richTextBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
 
             if (checkBoxSendHex.Checked || checkBoxSendDec.Checked)
@@ -1318,7 +1360,7 @@ namespace Serial_Comm_Tester
                         });
 
 
-                       // SerialEncoding();
+                        SerialEncoding();
 
                         serialPort1.Write(richTextBoxSend.Text);
 
@@ -1352,8 +1394,8 @@ namespace Serial_Comm_Tester
                     MessageBox.Show("Original Error :" + ex.Message, "Clear To Send Is Not Active ", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
-            //await Task.Delay(100);
-            //TX = false;
+            await Task.Delay(100);
+            TX = false;
 
         }
 
@@ -1368,8 +1410,7 @@ namespace Serial_Comm_Tester
         {
             if (!serialPort1.IsOpen)
 
-                try
-                {
+                try {
                     comboBoxActiveComPorts.Items.Clear();
                     textBox11.Clear();
 
@@ -1381,7 +1422,7 @@ namespace Serial_Comm_Tester
                 }
             else
             {
-                MessageBox.Show("Close The Current Port Before Refreshing", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Close The Current Port Before Refreshing","Message" , MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
 
@@ -1389,7 +1430,7 @@ namespace Serial_Comm_Tester
         private void btnRtsOn_Click(object sender, EventArgs e)
         {
             // RTS cannot be accessed if readyToSend readyToSend xonxoff is enable etc..
-            if (comboBoxFlow.SelectedIndex != 3 && comboBoxFlow.SelectedIndex != 4)
+            if(comboBoxFlow.SelectedIndex != 3 && comboBoxFlow.SelectedIndex != 4)
             {
                 if (serialPort1.IsOpen && serialPort1.RtsEnable == false)
                 {
@@ -1404,9 +1445,9 @@ namespace Serial_Comm_Tester
             }
             else
             {
-                MessageBox.Show("Cannot enable RTS when using this Handshaking Flow control", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show( "Cannot enable RTS when using this Handshaking Flow control","Message" , MessageBoxButtons.OK , MessageBoxIcon.Information);
             }
-
+          
 
         }
 
@@ -1537,7 +1578,7 @@ namespace Serial_Comm_Tester
 
         private bool TX = false;
         private bool RX = false;
-
+       
 
         private void btnEXIT_Click(object sender, EventArgs e)
         {
@@ -1548,23 +1589,85 @@ namespace Serial_Comm_Tester
         }
 
 
-        private void timerCTSETC_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
             if (serialPort1.IsOpen)
                 try
                 {
-                 
+
+
+
+                    textBoxRI.Text = "";
+                    textBoxBI.Text = "";
+                    if (serialPort1.DsrHolding == true)
+                    {
+                        textBoxDSR.BackColor = Color.Lime;
+                        textBoxDSR.Text = "Dsr On";
+                    }
+                    if (serialPort1.DsrHolding == false)
+                    {
+                        textBoxDSR.BackColor = Color.LightSkyBlue;
+                        textBoxDSR.Text = "Dsr Off";
+                    }
+                    if (serialPort1.CDHolding == true)
+                    {
+                        textBoxCD.BackColor = Color.Lime;
+                        textBoxCD.Text = "CD On";
+                    }
+                    if (serialPort1.CDHolding == false)
+                    {
+                        textBoxCD.BackColor = Color.LightSkyBlue;
+                        textBoxCD.Text = "CD Off";
+
+                    }
+                    if (serialPort1.CtsHolding == true)
+                    {
+                        textBoxCTS.BackColor = Color.Lime;
+                        textBoxCTS.Text = "Cts On";
+                    }
+                    if (serialPort1.CtsHolding == false)
+                    {
+                        textBoxCTS.BackColor = Color.LightSkyBlue;
+                        textBoxCTS.Text = "Cts Off";
+
+                    }
+                    //this code gets the the serial ring value
+                    textBoxRI.Text = SerialPinChange.Ring.ToString();
+                    if (textBoxRI.Text == "Ring")
+                    {
+                        textBoxRI.BackColor = Color.Lime;
+
+                    }
+                    // textBox9.Text = SerialPinChange.Ring.ToString();
+                    if (textBoxRI.Text != "Ring")
+                    {
+                        textBoxRI.BackColor = Color.LightSkyBlue;
+
+                    }
+                    //this code gets the current state of a break point
+                    textBoxBI.Text = SerialPinChange.Break.ToString();
+                    if (textBoxBI.Text == "Break")
+                    {
+                        textBoxBI.BackColor = Color.Lime;
+
+                    }
+                    // textBox10.Text = SerialPinChange.Break.ToString();
+                    if (textBoxBI.Text != "Break")
+                    {
+                        textBoxBI.BackColor = Color.LightSkyBlue;
+
+                    }
 
                     if (TX == true)
                     {
                         textBoxTX.BackColor = Color.Lime;
                         textBoxTX.Text = "TX On";
-
-                        TX = false;
-                      
+                        //TXcounter++;
+                        //lblTxSent.Update();
+                        //lblTxSent.Text = "TX :" + TXcounter;
 
                     }
-                    else
+                    if (TX == false)
                     {
                         textBoxTX.BackColor = Color.LightSkyBlue;
                         textBoxTX.Text = "TX Off";
@@ -1575,19 +1678,40 @@ namespace Serial_Comm_Tester
                         textBoxRX.BackColor = Color.Lime;
                         textBoxRX.Text = "RX On";
 
-                        lblRxSent.Update();
-                        lblRxSent.Text = "RX :" + RXcounter;
-
-                        RX = false;
+                        //rXcharCount++;
+                        //RXcounter++;
+                        //lblRxSent.Update();
+                        //lblRxSent.Text = "RX :" + RXcounter;
 
                     }
-                    else
+                    if (RX == false)
                     {
                         textBoxRX.BackColor = Color.LightSkyBlue;
                         textBoxRX.Text = "RX Off";
                     }
+                    if(comboBoxFlow.Text != "RequestToSendXOnXOff" && comboBoxFlow.Text != "RequestToSend") // added this as it was trying to access thr rts even though it cannot be access with these flow settings
+                    {
 
+                        if (serialPort1.RtsEnable)
+                        {
+                            textBoxRTS.BackColor = Color.Lime;
+                            textBoxRTS.Text = "Rts ON";
+                            //  timerCTSETC.Stop();
+                        }
+                        if (serialPort1.RtsEnable == false)
+                        {
+                            textBoxRTS.BackColor = Color.Red;
+                            textBoxRTS.Text = "Rts Off";
+                            // timerCTSETC.Stop();
+                        }
+                        
+                    }
+                   if(comboBoxFlow.Text == "RequestToSendXOnXOff" | comboBoxFlow.Text == "RequestToSend")
+                            {
+                        textBoxRTS.BackColor = Color.Red;
+                        textBoxRTS.Text = "Rts Off";
 
+                    }
 
                 }
 
@@ -1613,11 +1737,11 @@ namespace Serial_Comm_Tester
             foreach (char L in value)
             {
                 int v = Convert.ToInt32(L);
-
+                
                 outp += string.Format("{0:X2}" + "  ", v);
-
+                
             }
-
+          
             return outp;
 
         }
@@ -1634,9 +1758,9 @@ namespace Serial_Comm_Tester
 
                 int v2 = Convert.ToInt32(L);
                 //long v2 = Convert.ToInt64(L);
-
+                
                 outp2 += string.Format("{0:000}" + "  ", v2);
-
+                
             }
             return outp2;
         }
@@ -1647,9 +1771,9 @@ namespace Serial_Comm_Tester
             {
                 string ascii = string.Empty;
 
-                // hexString = hexString.Replace("  ", ""); //this make sure no white space is trying to get converted
+                // hexString = hexString.Replace("  ", ""); //this make sure no white space is trying to get converted//-------------------------------------18/5/17
 
-                StringBuilder sb = new StringBuilder(hexString);
+                StringBuilder sb = new StringBuilder(hexString); //-------------------------------------18/5/17
                 sb.Replace(" ", "");
                 sb.Replace("  ", "");
                 hexString = sb.ToString();
@@ -1660,9 +1784,9 @@ namespace Serial_Comm_Tester
 
                     hs = hexString.Substring(i, 2);
                     //uint decval = Convert.ToUInt32(hs, 16);
-                    // char character = Convert.ToChar(decval); 
+                    // char character = Convert.ToChar(decval); //-------------------------------------18/5/17
 
-                    char character = Convert.ToChar(Convert.ToUInt32(hs, 16)); 
+                    char character = Convert.ToChar(Convert.ToUInt32(hs, 16)); //-------------------------------------18/5/17
                     // string character = decval.ToString("x2");
                     ascii += character;
                     // ascii += decval;
@@ -1676,11 +1800,14 @@ namespace Serial_Comm_Tester
             {
 
                 sendDataNoError = false;
-              
+                //Form1 f1 = new Form1();
+                //f1.txRepeaterDelay.Stop();
+                //f1.send_repeat_counter = 100;
+                //f1.richTextBoxSend.Text = "";
 
                 MessageBox.Show("Enter a Valid Hexadecimal Value. Original error :  " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-
+                
             }
 
             return string.Empty;
@@ -1704,10 +1831,17 @@ namespace Serial_Comm_Tester
             //  decString.Replace(" ", "");
             try
             {
-                
+
+
+
                 string dec = string.Empty;
-                
-                StringBuilder sb = new StringBuilder(decString);  
+
+
+
+                //if (decString.Contains(" "))
+                //{
+                // decString = decString.Replace("  ", "");
+                StringBuilder sb = new StringBuilder(decString);  //-------------------------------------18/5/17
                 sb.Replace(" ", "");
                 sb.Replace("  ", "");
                 decString = sb.ToString();
@@ -1727,7 +1861,10 @@ namespace Serial_Comm_Tester
                     // dec += decval;
 
                 }
-               
+                //  }
+
+
+
 
                 return dec;
             }
@@ -1736,10 +1873,14 @@ namespace Serial_Comm_Tester
             catch (Exception ex)
             {
                 sendDataNoError = false;
-              
+                //Form1 f1 = new Form1();
+                //f1.txRepeaterDelay.Stop();
+                //f1.send_repeat_counter = 100;
+                //f1.richTextBoxSend.Text = "";
+
                 MessageBox.Show("Enter a Valid Decimal Value. Original error : " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-
+               
             }
 
 
@@ -1763,7 +1904,7 @@ namespace Serial_Comm_Tester
                 foreach (var word in hexWords)
                 {
                     // Console.WriteLine(word);
-                    richTextBoxHex.AppendText(word + "0A" + "\n");
+                    richTextBoxHex.AppendText(word + "0A"  + "\n");
                 }
 
 
@@ -1776,7 +1917,10 @@ namespace Serial_Comm_Tester
                     richTextBoxDec.AppendText(word + "010" + "\n");
                 }
 
-              
+                //richTextBoxHex.Text += toHex(richTextBoxRecieve.Text);
+                //  richTextBoxHex.Text = ConvertHex(richTextBoxRecieve.Text);
+              //  richTextBoxDec.Text += toDec(richTextBoxRecieve.Text);
+
             }
 
 
@@ -1842,6 +1986,10 @@ namespace Serial_Comm_Tester
 
         }
 
+        //private void pasteToolStripMenuItem2_Click(object sender, EventArgs e)
+        //{
+        //    richTextBoxHex.Text += Clipboard.GetText();
+        //}
 
         private void contextMenuStripHex_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -1899,15 +2047,6 @@ namespace Serial_Comm_Tester
                 checkBoxSendDec.Checked = false;
                 checkBoxSendNormal.Checked = false;
             }
-
-            if (checkBoxSendHex.Checked)
-            {
-                ischeckBoxSendHexChecked = true;
-            }
-            else
-            {
-                ischeckBoxSendHexChecked = false;
-            }
         }
 
         private void checkBoxAutoSend_CheckedChanged(object sender, EventArgs e)
@@ -1937,12 +2076,6 @@ namespace Serial_Comm_Tester
                 checkBoxSendNormal.Checked = false;
                 checkBox2DEC.Checked = true;
                 // checkBoxSendDec.Checked = true;
-
-                ischeckBoxSendDecChecked = true;
-            }
-            else
-            {
-                ischeckBoxSendDecChecked = false;
             }
             if (checkBoxSendDec.Checked == false)
             {
@@ -1966,15 +2099,6 @@ namespace Serial_Comm_Tester
                 checkBox3DEC.Checked = false;
                 checkBox2DEC.Checked = true;
             }
-
-            if (checkBox2DEC.Checked)
-            {
-                ischeckBox2DECChecked = true;
-            }
-            else
-            {
-                ischeckBox2DECChecked = false;
-            }
         }
 
         private void checkBox3DEC_CheckedChanged(object sender, EventArgs e)
@@ -1987,15 +2111,6 @@ namespace Serial_Comm_Tester
                 checkBoxSendDec.Checked = true;
                 checkBox2DEC.Checked = false;
                 checkBox3DEC.Checked = true;
-            }
-
-            if (checkBox3DEC.Checked)
-            {
-                ischeckBox3DECChecked = true;
-            }
-            else
-            {
-                ischeckBox3DECChecked = false;
             }
         }
 
@@ -2025,14 +2140,6 @@ namespace Serial_Comm_Tester
                 chkBConvertToHexDec.Checked = false;
             }
 
-            if (chkBAutoReadHex.Checked)
-            {
-                ischkBAutoReadHexChecked = true;
-            }
-            else
-            {
-                ischkBAutoReadHexChecked = false;
-            }
         }
 
         private void chkBAutoReadDec_CheckedChanged(object sender, EventArgs e)
@@ -2046,88 +2153,67 @@ namespace Serial_Comm_Tester
             }
 
 
-            if (chkBAutoReadDec.Checked)
-            {
-                ischkBAutoReadDecChecked = true;
-            }
-            else
-            {
-                ischkBAutoReadDecChecked = false;
-            }
         }
 
         private void chkBAutoRead_CheckedChanged(object sender, EventArgs e)
         {
-            
-           
 
-            if (chkBAutoRead.Checked)
-            {
-                ischkBAutoReadChecked = true;
-
-                chkBAutoReadHex.Checked = false;
-                chkBAutoReadDec.Checked = false;
-            }
-            else
-            {
-                ischkBAutoReadChecked = false;
-            }
-
+            chkBAutoReadHex.Checked = false;
+            chkBAutoReadDec.Checked = false;
         }
 
         private void chkBConvertToHexDec_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkBConvertToHexDec.Checked)
-            {
-                chkBAutoRead.Checked = true;
-                chkBAutoRead.Enabled = false;
-            }
-            else
-            {
-                chkBAutoRead.Enabled = true;
-            }
-
-            if (chkBAutoRead.Checked)
-            {
-                chkBAutoReadHex.Checked = false;
-                chkBAutoReadDec.Checked = false;
-            }
-
-
-
+            chkBAutoRead.Checked = true;
+            chkBAutoReadHex.Checked = false;
+            chkBAutoReadDec.Checked = false;
         }
 
-       
+        //private void chkBAutoReadHex_Click(object sender, EventArgs e)
+        //{
+        //   // chkBAutoReadHex.Checked = true;
+        //}
+
+        //private void chkBAutoReadDec_Click(object sender, EventArgs e)
+        //{
+        //   // chkBAutoReadDec.Checked = true;
+        //}
+
+        //private void chkBAutoRead_Click(object sender, EventArgs e)
+        //{
+        //   // chkBAutoRead.Checked = true;
+        //}
+
         //this is to limit the size of the the text captured in the richtextboxes
         bool stopMessage = false;
 
 
         //TICK EVENT FOR MAX CHARACTERS RECIEVED
 
-        private async void timerTextLenght_Tick(object sender, EventArgs e)
+        private async void timer2_Tick(object sender, EventArgs e)
         {
-            if (ckBEnableLogs.Checked && richTextBoxRecieve.Lines.Length > 20)
+            if(ckBEnableLogs.Checked && richTextBoxRecieve.Lines.Length > 20 )
             {
                 // richTextBoxRecieve.Lines.Skip(10);
-                richTextBoxRecieve.Text = richTextBoxRecieve.Text.Remove(0, richTextBoxRecieve.Lines.Length);
-                // richTextBoxRecieve.Clear();
+                 richTextBoxRecieve.Text = richTextBoxRecieve.Text.Remove(0, richTextBoxRecieve.Lines.Length);
+               // richTextBoxRecieve.Clear();
 
             }
-            if (ckBEnableLogs.Checked && richTextBoxHex.Lines.Length > 20)
+            if (ckBEnableLogs.Checked &&  richTextBoxHex.Lines.Length > 20 )
             {
 
                 richTextBoxHex.Text = richTextBoxHex.Text.Remove(0, richTextBoxHex.Lines.Length);
-                // richTextBoxHex.Clear();
-
+               // richTextBoxHex.Clear();
+               
             }
-            if (ckBEnableLogs.Checked && richTextBoxDec.Lines.Length > 20)
+            if (ckBEnableLogs.Checked &&  richTextBoxDec.Lines.Length > 20)
             {
                 richTextBoxDec.Text = richTextBoxDec.Text.Remove(0, richTextBoxDec.Lines.Length);
-                //  richTextBoxDec.Clear();
+              //  richTextBoxDec.Clear();
             }
             // if (richTextBoxRecieve.Text.Length > 10000 | richTextBoxHex.Text.Length > 10000 | richTextBoxDec.Text.Length > 10000 && stopMessage == false)
             if (richTextBoxRecieve.Lines.Length > 5000 | richTextBoxHex.Lines.Length > 5000 | richTextBoxDec.Lines.Length > 5000 && stopMessage == false)
-            {
+                {
                 //stop capturing the inbound data
                 chkBAutoRead.Checked = false;
                 chkBAutoReadDec.Checked = false;
@@ -2141,7 +2227,7 @@ namespace Serial_Comm_Tester
 
                     sfd.Title = "Save To a File";
                     sfd.Filter = "text files (*.txt)|*.txt|Richtext files (*.rtf)|*.rtf";
-
+                   
 
                     string recieve = string.Empty;
                     recieve = richTextBoxRecieve.Text;
@@ -2249,7 +2335,7 @@ namespace Serial_Comm_Tester
         //THIS IS THE HANDLER FOR SURPRESSING THE DELETE KEY AND BACKSPACE KEY ON THE SEND BOX
         private void richTextBoxSend_KeyDown(object sender, KeyEventArgs e)
         {
-            if (ischeckBoxSendHexChecked || ischeckBoxSendDecChecked)
+            if (checkBoxSendHex.Checked || checkBoxSendDec.Checked)
             {
                 if (richTextBoxSend.Text != "")
                 {
@@ -2287,7 +2373,7 @@ namespace Serial_Comm_Tester
                 }
             }
 
-            if (ischeckBox3DECChecked && ischeckBoxSendDecChecked && richTextBoxSend.Text != "")
+            if (checkBox3DEC.Checked && checkBoxSendDec.Checked && richTextBoxSend.Text != "")
             {
                 string checkStringDEC = string.Empty;
                 checkStringDEC = richTextBoxSend.Text;
@@ -2375,9 +2461,9 @@ namespace Serial_Comm_Tester
         //THIS IS USED TO REMOVE THE SELECTED TEXT HIGHLIGHTED BY THE USER IF HEX OR DEC IS ENABLED
         private void richTextBoxSend_MouseUp(object sender, MouseEventArgs e)
         {
-
+           
             //this will unselect the mouse selected text and remove the mouse patse function or enable it if hex or dec is not selected
-            if (ischeckBoxSendHexChecked || ischeckBoxSendDecChecked)
+            if (checkBoxSendHex.Checked || checkBoxSendDec.Checked)
             {
                 //this sets the cursor position to the end of the text
                 richTextBoxSend.Select(richTextBoxSend.Text.Length, 0);
@@ -2386,7 +2472,7 @@ namespace Serial_Comm_Tester
 
                 pasteToolStripMenuItem.Enabled = false;
             }
-            if (!ischeckBoxSendHexChecked && !ischeckBoxSendDecChecked)
+            if (!checkBoxSendHex.Checked && !checkBoxSendDec.Checked)
             {
                 pasteToolStripMenuItem.Enabled = true;
             }
@@ -2485,8 +2571,8 @@ namespace Serial_Comm_Tester
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (serialPort1.IsOpen)
+        { 
+             if (serialPort1.IsOpen)
             {
                 try
                 {
@@ -2501,12 +2587,12 @@ namespace Serial_Comm_Tester
         private bool boolCarrigeReturnLF = false;
         private void checkBoxCRLF_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBoxCRLF.Checked)
+            if(checkBoxCRLF.Checked)
             {
                 checkBoxCR.Checked = false;
                 boolCarrigeReturnLF = true;
             }
-            if (checkBoxCRLF.Checked == false)
+            if(checkBoxCRLF.Checked == false)
             {
                 boolCarrigeReturnLF = false;
             }
@@ -2527,11 +2613,11 @@ namespace Serial_Comm_Tester
 
         private void btnSendBreak_Click(object sender, EventArgs e)
         {
-            if (serialPort1.IsOpen)
+            if(serialPort1.IsOpen)
             {
                 int v2 = Convert.ToInt32("3");
 
-                string sendBreak = string.Format("{0:X2}", v2);
+                string sendBreak = string.Format("{0:X2}" , v2);
                 serialPort1.Write(sendBreak);
             }
         }
@@ -2575,13 +2661,13 @@ namespace Serial_Comm_Tester
                     {
                         using (StreamReader sw = new StreamReader(ofd.OpenFile(), true))
                         {
-
+                            
                             inputString = await (sw.ReadToEndAsync());
 
                             richTextBoxSend.Text += inputString;
-
+                           
                         }
-
+                        
                     }
                     catch (Exception ex)
                     {
@@ -2589,9 +2675,9 @@ namespace Serial_Comm_Tester
                         MessageBox.Show(ex.Message);
                     }
 
-
+                    
                 }
-
+                
             }
         }
 
@@ -2636,12 +2722,12 @@ namespace Serial_Comm_Tester
             //        ckBEnableLogs.Checked = false;
             //    }
             //}
-
+        
         }
 
         private void ckBAppendLogs_CheckedChanged(object sender, EventArgs e)
         {
-            if (ckBAppendLogs.Checked)
+            if(ckBAppendLogs.Checked)
             {
                 ckBOverwriteLogs.Checked = false;
             }
@@ -2654,9 +2740,9 @@ namespace Serial_Comm_Tester
                 ckBAppendLogs.Checked = false;
             }
         }
-
+      
         //This adds points to the chart graph
-        private void GetChartPoint(int input)
+        private void GetChartPoint(int input )
         {
             lblCountRX.Update();
             lblCountRX.Text = rXChartCount.ToString();
@@ -2682,30 +2768,30 @@ namespace Serial_Comm_Tester
                 chart1.Series["SeriesTX"].Points.Add(tXChartCount);
             }
             //just keep the chart moving with added value of zero if no counts available
-            if (rXChartCount == 0)
+            if(rXChartCount == 0)
             {
                 chart1.Series["SeriesRX"].Points.AddY(0);
                 chart1.Series["SeriesRX"].Points.RemoveAt(0);
                 chart1.Series["SeriesRX"].Points.Add(0);
 
-
+               
             }
-            if (tXChartCount == 0)
+            if(tXChartCount == 0)
             {
                 chart1.Series["SeriesTX"].Points.AddY(0);
                 chart1.Series["SeriesTX"].Points.RemoveAt(0);
                 chart1.Series["SeriesTX"].Points.Add(0);
             }
-
+          
             chart1.ResetAutoValues();
-
+            
         }
 
         private void ckBStartGraph_CheckedChanged(object sender, EventArgs e)
         {
             if (ckBStartGraph.Checked)
             {
-                if (serialPort1.IsOpen)
+                if(serialPort1.IsOpen)
                 {
                     timerGraph.Interval = (int)graph_speed.Value * 1000;
                     timerGraph.Start();
@@ -2713,8 +2799,8 @@ namespace Serial_Comm_Tester
                     graph_speed.Enabled = false;
 
                 }
-
-
+               
+                    
             }
             if (ckBStartGraph.Checked == false)
             {
@@ -2726,7 +2812,7 @@ namespace Serial_Comm_Tester
         private void timerGraph_Tick(object sender, EventArgs e)
         {
             GetChartPoint(rXChartCount);
-
+            
             rXChartCount = 0;
             tXChartCount = 0;
         }
@@ -2762,7 +2848,7 @@ namespace Serial_Comm_Tester
                 sfd.Title = "Enable Logging To a File";
                 sfd.Filter = "text files (*.txt)|*.txt|Richtext files (*.rtf)|*.rtf";
 
-                if (sfd.ShowDialog() == DialogResult.OK)
+                if (sfd.ShowDialog() != DialogResult.Cancel)
                 {
                     lblDataLogFilePath.Text = sfd.FileName;
 
@@ -2778,652 +2864,5 @@ namespace Serial_Comm_Tester
         {
 
         }
-
-        private void btnChooseFileAutoReply_Click(object sender, EventArgs e)
-        {
-
-           
-
-            OpenFileDialog ofd = new OpenFileDialog();
-
-            ofd.Filter = "(txt files)|*.txt|(rtf files)|*.rtf";
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                myAutoReplyDic = new Dictionary<string, string>();
-
-
-
-                try
-                {
-                    string[] strArr = File.ReadAllLines(ofd.FileName);
-
-                    lblIsAutoFileLoaded.Text = ofd.SafeFileName;
-                    lblAutoReplyLineCount.Text = strArr.Length.ToString();
-
-                    foreach (string str in strArr)
-                    {
-                        string[] strSplitter = str.Split(autoReplySplitterChar);
-
-                        if (strSplitter.Length == 2)
-                        {
-                            if(rBtnText.Checked)
-                            {
-                                if (myAutoReplyDic.ContainsKey(strSplitter[0]) == false)
-                                {
-                                    myAutoReplyDic.Add(strSplitter[0], strSplitter[1]);
-                                }
-                            }
-                            else if(rBtnHex.Checked)
-                            {
-                               if(strSplitter[0].Length % 2 == 0 && strSplitter[1].Length %2 == 0)
-                                {
-                                    string hexKey = "";
-                                    string hexValue = "";
-
-                                    //key
-                                    for (int i = 0; i < strSplitter[0].Length; i++)
-                                    {
-                                      
-                                        int s;
-                                        bool isHex = int.TryParse(strSplitter[0].Substring(i, 2) , System.Globalization.NumberStyles.HexNumber, null, out s);
-                                        i++;
-
-                                        if (isHex)
-                                        {
-                                            hexKey += s.ToString("X2");
-                                        }
-                                    }
-                                    //value
-                                    for (int i = 0; i < strSplitter[1].Length; i++)
-                                    {
-
-                                        int s;
-                                        bool isHex = int.TryParse(strSplitter[1].Substring(i, 2), System.Globalization.NumberStyles.HexNumber, null, out s);
-                                        i++;
-
-                                        if (isHex)
-                                        {
-                                            hexValue += s.ToString("X2");
-                                        }
-                                    }
-
-                                    if (myAutoReplyDic.ContainsKey(hexKey) == false)
-                                    {
-                                        myAutoReplyDic.Add(hexKey, hexValue);
-                                    }
-                                }
-                                else
-                                {
-                                    MessageBox.Show("The file does not contain formatted hex values..", "File Format Error....", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    return;
-                                }
-
-                            }
-                            
-                        }
-                        else
-                        {
-                            MessageBox.Show("The file does not contain the char splitter between message and reply..", "File Format Error....", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-                    }
-
-                    if(myAutoReplyDic.Count > 0)
-                    {
-                        rBtnEnableAutoReply.Enabled = true;
-                        rBtnEnableAutoReply.Checked = true;
-                    }
-                }
-                catch (Exception ex)
-                {
-
-                    MessageBox.Show("Error ::" + ex.Message, "Error....", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                if (rBtnText.Checked)
-                {
-                    chkBAutoRead.Checked = true;
-                    tabControl2.SelectedIndex = 0;
-                    checkBoxSendNormal.Checked = true;
-                }
-                else if (rBtnHex.Checked)
-                {
-                    chkBAutoReadHex.Checked = true;
-                    tabControl2.SelectedIndex = 1;
-                    checkBoxSendHex.Checked = true;
-                }
-
-                tabControl1.SelectedIndex = 1;
-            }
-        }
-
-        private void txtBFileReplySplitter_TextChanged(object sender, EventArgs e)
-        {
-            if (txtBFileReplySplitter.Text != "")
-            {
-                autoReplySplitterChar = Convert.ToChar(txtBFileReplySplitter.Text);
-            }
-            //else
-            //{
-            //    txtBFileReplySplitter.Text = ",";
-            //    autoReplySplitterChar = ',';
-            //}
-        }
-
-        private void lblAutoReplyActive_TextChanged(object sender, EventArgs e)
-        {
-            if (lblAutoReplyActive.Text == "Active")
-            {
-                lblAutoReplyActive.BackColor = Color.Lime;
-            }
-            else
-            {
-                lblAutoReplyActive.BackColor = Color.White;
-            }
-        }
-
-        private void rBtnDisableAutoReply_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rBtnDisableAutoReply.Checked)
-            {
-                lblAutoReplyActive.Text = "inactive";
-                isAutoReplyEnabled = false;
-            }
-        }
-
-        private void rBtnEnableAutoReply_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rBtnEnableAutoReply.Checked)
-            {
-                lblAutoReplyActive.Text = "Active";
-
-                isAutoReplyEnabled = true;
-
-               
-            }
-        }
-
-        private void comboBoxDecodeFormat_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            comBoBoxformatText = comboBoxDecodeFormat.Text;
-        }
-
-        private void bgwAutoReply_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-           
-
-            System.Threading.Thread.Sleep(rxDelayTime);
-
-           
-        }
-
-        private void bgwAutoReply_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-         
-            string serialReadString = "";
-            string getAll = "";
-
-            try
-            {
-
-                int countBytes = serialPort1.BytesToRead;
-                byte[] myBytesToRead = new byte[countBytes];
-                serialPort1.Read(myBytesToRead, 0, countBytes);
-
-                getAll = serialPortEncoding.GetString(myBytesToRead);
-                serialReadString = getAll;
-
-                rXChartCount++; //update the samples per interval
-                RX = true;
-                RXcounter++;
-
-              
-
-                // serialReadString = serialPort1.ReadExisting();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-
-            }
-
-            if (isAutoReplyEnabled == true)
-            {
-                //start a new task i think to read through possible replys if there is lots of possible replys
-                //only update the search string if the background worker is complted the search and reply
-               
-                autoReplyStringToMatch = getAll;
-
-              //  Console.WriteLine("autostring= " + autoReplyStringToMatch);
-               
-            }
-
-
-            //this code displays the hex values to richtextbox4 you cannot directly call data from the port as its a seperate thread
-            if (serialPort1.IsOpen && ischkBAutoReadHexChecked)
-                try
-                {
-                    //this is the original ////////////////////////////////
-                    // richbox4string = serialPort1.ReadByte().ToString("X2") + "  ";
-
-
-                    richboxHexString = toHex(serialReadString); //>>>>>>>>>>>>>>>>>i changed this 2017
-                                                                // richbox4string = ConvertHex(serialPort1.ReadExisting());
-                    Invoke(new EventHandler(DisplayAutoHex));
-
-                     
-
-                    autoReplyStringToMatch = richboxHexString.Replace(" ", "");
-
-                   autoReplyMessage = "";
-
-                    if (myAutoReplyDic != null && isAutoReplyEnabled && autoReplyStringToMatch != "")
-                    {
-                        foreach (KeyValuePair<string, string> dic in myAutoReplyDic)
-                        {
-                            if (autoReplyStringToMatch == dic.Key)
-                            {
-                                autoReplyMessage = ConvertHex(dic.Value);
-                                break;
-                            }
-
-                        }
-                    }
-
-                    //  RX = true;
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            //this code gets the decimal value and displays it to richtextbox3
-            else if (serialPort1.IsOpen && ischkBAutoReadDecChecked)
-                try
-                {
-                    //this is the original
-                    //  richbox3string = serialPort1.ReadByte().ToString("") + "  ";
-
-                    richboxDecString = toDec(serialReadString);
-
-                    this.Invoke(new EventHandler(DisplayAutoDec));
-
-
-
-                    //   RX = true;
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            //this checks first to see if the port is open and the checked box is checked to read existing serial data
-            else if (serialPort1.IsOpen && ischkBAutoReadChecked && ischkBAutoReadDecChecked == false && ischkBAutoReadHexChecked == false)
-            {
-                try
-                {
-
-                    // SerialEncoding();
-
-
-
-                    richbox2string = serialReadString;
-
-
-
-                    this.Invoke(new EventHandler(DisplayAutoText));
-
-
-                    autoReplyMessage = "";
-
-                    if (myAutoReplyDic != null && isAutoReplyEnabled && autoReplyStringToMatch != "")
-                    {
-                        foreach (KeyValuePair<string, string> dic in myAutoReplyDic)
-                        {
-                            if (autoReplyStringToMatch == dic.Key)
-                            {
-                                autoReplyMessage = dic.Value;
-                                break;
-                            }
-
-                        }
-                    }
-
-
-                    //   RX = true;
-
-                }
-                catch (Exception ex)
-                {
-
-                    MessageBox.Show(ex.Message, "Message ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                if (!serialPort1.IsOpen && ischkBAutoReadChecked)
-                {
-
-                    ComPortClosed();
-
-                }
-
-            }
-
-
-
-            // await Task.Delay(100);
-            //RX = false;
-
-           
-
-
-
-            //==================send the auto reply message
-
-
-            if (autoReplyMessage != "")
-            {
-                if (serialPort1.IsOpen)
-                {
-                    try
-                    {
-                        serialPort1.Write(autoReplyMessage);
-
-                        
-                    }
-                    catch (Exception ex)
-                    {
-
-
-                    }
-                }
-            }
-
-           
-        }
-
-        private void serialPort1_PinChanged(object sender, SerialPinChangedEventArgs e)
-        {
-           
-            if (e.EventType == SerialPinChange.Ring)
-            {
-                if(textBoxRI.InvokeRequired)
-                {
-                    Invoke((MethodInvoker)delegate
-                    {
-                        try
-                        {
-                            if (textBoxRI.BackColor == Color.Lime)
-                            {
-                                textBoxRI.BackColor = Color.LightSkyBlue;
-                            }
-                            else
-                            {
-                                textBoxRI.BackColor = Color.Lime;
-                            }
-                        }
-                        catch (Exception)
-                        {
-
-                           
-                        }
-                    });
-                }
-                else
-                {
-                    try
-                    {
-                        if (textBoxRI.BackColor == Color.Lime)
-                        {
-                            textBoxRI.BackColor = Color.LightSkyBlue;
-                        }
-                        else
-                        {
-                            textBoxRI.BackColor = Color.Lime;
-                        }
-                    }
-                    catch (Exception)
-                    {
-
-                       
-                    }
-                   
-                }
-               
-            }
-            else if (e.EventType == SerialPinChange.DsrChanged)
-            {
-                if (textBoxDSR.InvokeRequired)
-                {
-                    Invoke((MethodInvoker)delegate
-                    {
-                        try
-                        {
-                            if (textBoxDSR.BackColor == Color.Lime)
-                            {
-                                textBoxDSR.BackColor = Color.LightSkyBlue;
-                                textBoxDSR.Text = "Dsr Off";
-                            }
-                            else
-                            {
-                                textBoxDSR.BackColor = Color.Lime;
-                                textBoxDSR.Text = "Dsr On";
-                            }
-                        }
-                        catch (Exception)
-                        {
-
-
-                        }
-                    });
-                }
-                else
-                {
-                    try
-                    {
-                        if (textBoxDSR.BackColor == Color.Lime)
-                        {
-                            textBoxDSR.BackColor = Color.LightSkyBlue;
-                            textBoxDSR.Text = "Dsr Off";
-                        }
-                        else
-                        {
-                            textBoxDSR.BackColor = Color.Lime;
-                            textBoxDSR.Text = "Dsr On";
-                        }
-                    }
-                    catch (Exception)
-                    {
-
-
-                    }
-
-                }
-               
-            }
-            else if (e.EventType == SerialPinChange.CDChanged)
-            {
-                if (textBoxCD.InvokeRequired)
-                {
-                    Invoke((MethodInvoker)delegate
-                    {
-                        try
-                        {
-                            if (textBoxCD.BackColor == Color.Lime)
-                            {
-                                textBoxCD.BackColor = Color.LightSkyBlue;
-                                textBoxCD.Text = "CD Off";
-                            }
-                            else
-                            {
-                                textBoxCD.BackColor = Color.Lime;
-                                textBoxCD.Text = "CD On";
-                            }
-                        }
-                        catch (Exception)
-                        {
-
-
-                        }
-                    });
-                }
-                else
-                {
-                    try
-                    {
-                        if (textBoxCD.BackColor == Color.Lime)
-                        {
-                            textBoxCD.BackColor = Color.LightSkyBlue;
-                            textBoxCD.Text = "CD Off";
-                        }
-                        else
-                        {
-                            textBoxCD.BackColor = Color.Lime;
-                            textBoxCD.Text = "CD On";
-                        }
-                    }
-                    catch (Exception)
-                    {
-
-
-                    }
-
-                }
-               
-            }
-            else if (e.EventType == SerialPinChange.CtsChanged)
-            {
-                if (textBoxCTS.InvokeRequired)
-                {
-                    Invoke((MethodInvoker)delegate
-                    {
-                        try
-                        {
-                            if (textBoxCTS.BackColor == Color.Lime)
-                            {
-                                textBoxCTS.BackColor = Color.LightSkyBlue;
-                                textBoxCTS.Text = "Cts Off";
-                            }
-                            else
-                            {
-                                textBoxCTS.BackColor = Color.Lime;
-                                textBoxCTS.Text = "Cts On";
-                            }
-                        }
-                        catch (Exception)
-                        {
-
-
-                        }
-                    });
-                }
-                else
-                {
-                    try
-                    {
-                        if (textBoxCTS.BackColor == Color.Lime)
-                        {
-                            textBoxCTS.BackColor = Color.LightSkyBlue;
-                            textBoxCTS.Text = "Cts Off";
-                        }
-                        else
-                        {
-                            textBoxCTS.BackColor = Color.Lime;
-                            textBoxCTS.Text = "Cts On";
-                        }
-                    }
-                    catch (Exception)
-                    {
-
-
-                    }
-
-                }
-               
-
-            }
-            else if (e.EventType == SerialPinChange.Break)
-            {
-                if (textBoxBI.InvokeRequired)
-                {
-                    Invoke((MethodInvoker)delegate
-                    {
-                        try
-                        {
-                            if (textBoxBI.BackColor == Color.Lime)
-                            {
-                                textBoxBI.BackColor = Color.LightSkyBlue;
-                            }
-                            else
-                            {
-                                textBoxBI.BackColor = Color.Lime;
-                            }
-                        }
-                        catch (Exception)
-                        {
-
-
-                        }
-                    });
-                }
-                else
-                {
-                    try
-                    {
-                        if (textBoxBI.BackColor == Color.Lime)
-                        {
-                            textBoxBI.BackColor = Color.LightSkyBlue;
-                        }
-                        else
-                        {
-                            textBoxBI.BackColor = Color.Lime;
-                        }
-                    }
-                    catch (Exception)
-                    {
-
-
-                    }
-
-                }
-
-              
-            }
-        }
-
-        private void toolTip1_Popup(object sender, PopupEventArgs e)
-        {
-
-        }
-
-        private void numUpDwnRxDelay_ValueChanged(object sender, EventArgs e)
-        {
-            rxDelayTime = (int)numUpDwnRxDelay.Value;
-        }
-
-        private void serialPort1_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
-        {
-            if(e.EventType == SerialError.Frame)
-            {
-                MessageBox.Show("SerialError ,The hardware detected a frame error", "Error.....", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if(e.EventType == SerialError.Overrun)
-            {
-                MessageBox.Show("SerialError ,A character-buffer overrun has occured, The next character is lost", "Error.....", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (e.EventType == SerialError.RXOver)
-            {
-                MessageBox.Show("SerialError ,Input buffer overflow has occured, no room on the input buffer", "Error.....", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (e.EventType == SerialError.RXParity)
-            {
-                MessageBox.Show("SerialError ,The hardware detected a Parity error", "Error.....", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (e.EventType == SerialError.TXFull)
-            {
-                MessageBox.Show("SerialError ,The application tried to transmit a character but the ouput buffer was full", "Error.....", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            // ComPortClosed();
-        }
     }
-}
+ }

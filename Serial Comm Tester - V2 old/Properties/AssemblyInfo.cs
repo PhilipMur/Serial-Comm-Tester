@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Created by: Philip Murray")]
 [assembly: AssemblyProduct("Serial Comm Tester")]
-[assembly: AssemblyCopyright("Copyright © Philip Murray All Rights Reserved 2020")]
+[assembly: AssemblyCopyright("Copyright © Philip Murray All Rights Reserved 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -39,5 +39,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.4.0.16")]
-[assembly: AssemblyFileVersion("3.4.0.16")]
+[assembly: AssemblyVersion("3.2.0.0")]
+[assembly: AssemblyFileVersion("3.0.0.0")]
